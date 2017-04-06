@@ -22,6 +22,8 @@ urlpatterns = [
     url(r'^', include('store.urls')),
     url(r'^', include('profiles.urls')),
     url(r'^admin/', admin.site.urls),
+    url(r'^accounts/', include('allauth.urls')),
+
 ]
 
 if settings.DEBUG:
