@@ -44,10 +44,10 @@ class Product(models.Model):
     class Meta:
         verbose_name_plural = 'Products'
 
-
-
 class Listing(models.Model):
+
     seller = models.ForeignKey('profiles.Profile')
+    # product = models.ForeignKey(Product)
     conditionRating = models.FloatField()
     conditionDescription = models.TextField()
     status = models.TextField()

@@ -6,7 +6,7 @@ from allauth.account.signals import user_logged_in, user_signed_up
 import stripe
 stripe.api_key = settings.STRIPE_SECERT_KEY
 
-class profile(models.Model):
+class Profile(models.Model):
     name = models.CharField(max_length = 20)
     user = models.OneToOneField(settings.AUTH_USER_MODEL, null = True, blank = True)
     location = models.CharField(
@@ -30,7 +30,7 @@ class profile(models.Model):
     def __str__(self):
         return self.name
 
-class userStripe(models.Model):
+class UserStripe(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL)
     stripe_id = models.CharField(max_length=200, null=True, blank=True)
 
@@ -41,7 +41,7 @@ class userStripe(models.Model):
             return self.user.username
 
 def stripeCallback(sender, request, user, **kwargs):
-    user_stripe_account, created = userStripe.objects.get_or_create(user=user)
+    user_stripe_account, created = UserStripe.objects.get_or_create(user=user)
     if created:
         print('created for%s' %(user.username))
     if user_stripe_account.stripe_id is None or user_stripe_account.stripe_id == '':
@@ -50,7 +50,7 @@ def stripeCallback(sender, request, user, **kwargs):
         user_stripe_account.save()
 
 def profileCallback(sender, request, user, **kwargs):
-    userProfile, is_created = profile.objects.get_or_create(user=user)
+    userProfile, is_created = Profile.objects.get_or_create(user=user)
     if is_created:
         userProfile.name = user.username
         userProfile.save()

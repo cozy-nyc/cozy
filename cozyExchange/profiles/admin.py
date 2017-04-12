@@ -1,16 +1,16 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import profile, userStripe
+from .models import Profile, UserStripe
 
-class profileAdmin(admin.ModelAdmin):
+class ProfileAdmin(admin.ModelAdmin):
     class Meta:
-        model = profile
+        model = Profile
 
-admin.site.register(profile, profileAdmin)
+admin.site.register(Profile, ProfileAdmin)
 
-class userStripeAdmin(admin.ModelAdmin):
+class UserStripeAdmin(admin.ModelAdmin):
     class Meta:
-        model = userStripe
+        model = UserStripe
 
-admin.site.register(userStripe, userStripeAdmin)
+admin.site.register(UserStripe, UserStripeAdmin)
