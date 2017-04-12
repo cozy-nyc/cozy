@@ -1,9 +1,9 @@
 from django.contrib import admin
 
-from .models import profile
+from .models import Profile
 
 class profileAdmin(admin.ModelAdmin):
     class Meta:
-        model = profile
+        model = Profile
 
-admin.site.register(profile, profileAdmin)
+admin.site.register(Profile, profileAdmin)

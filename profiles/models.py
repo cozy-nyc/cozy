@@ -1,7 +1,7 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 
-class profile(models.Model):
+class Profile(models.Model):
     name = models.CharField(max_length = 20)
     location = models.CharField(
         max_length = 40,
