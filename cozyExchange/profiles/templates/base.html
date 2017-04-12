@@ -1,0 +1,29 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cozy Exchange</title>
+  <link rel='stylesheet' href='{% static "css/main.css" %}'
+</head>
+<body>
+  {% block header %}
+  {% endblock %}
+  {% block content %}
+  {% endblock %}
+
+  <script src="https://js.stripe.com/v2/"></script>
+  <script src="https://js.stripe.com/v3/"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  {% block script %}
+
+  {% endblock %}
+
+  <script>
+    $(document).ready(function(){
+      {% block jquery %}
+      {% endblock %}
+    });
+  </script>
+</body>
+</html>
