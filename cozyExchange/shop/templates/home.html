@@ -1,9 +1,17 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>Welcome to</h1>
+  <div id="header" class="intro">
+    <h1>Hi...<br> Now fuck off!</h1>
+  </div>
 {% endblock %}
 
 {% block content %}
-<h1>Cozy.Exchange</h1>
+  <h1>Cozy.Exchange</h1>
+  {% for category in categories %}
+            <h3>{{ category.name }}</h3>
+            {% for product in category.product_set.all %}
+                <a href="/product/{{ product.id }}">{{ product.name }}</a>
+            {% endfor %}
+        {% endfor %}
 {% endblock %}

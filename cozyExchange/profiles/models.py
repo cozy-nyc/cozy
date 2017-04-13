@@ -18,13 +18,6 @@ class Profile(models.Model):
         default = 3.0,
         validators=[MaxValueValidator(5.0), MinValueValidator(0.0)]
     )
-    verifiedStore = models.BooleanField (default = False)
-    if( verifiedStore ):
-        storeName = models.CharField(
-            max_length = 20,
-            default = '',
-            blank = True
-        )
     #Item/list
 
     def __str__(self):
@@ -56,5 +49,6 @@ def profileCallback(sender, request, user, **kwargs):
         userProfile.save()
 
 user_logged_in.connect(stripeCallback)
+user_logged_in.connect(profileCallback)
 user_signed_up.connect(profileCallback)
 user_signed_up.connect(stripeCallback)
