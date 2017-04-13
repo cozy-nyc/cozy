@@ -3,5 +3,25 @@ body {
 }
 
 h1 {
-  color: white;
+  color: #F8F5EB;
+}
+
+p {
+  color: #F8F5EB;
+}
+
+.intro {
+    display: table;
+    width: 100%;
+    height: auto;
+    padding: 100px;
+    background-color: #FFD8E3;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+..navbar-default {
+    background-color: #272727;
 }
