@@ -27,10 +27,8 @@ from checkout import views as checkout_views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', shop_views.home, name='home'),
+    url(r'^', include('shop.urls', namespace='shop')),
     url(r'^about/$', shop_views.about, name='about'),
-    url(r'^$', shop_views.product_list, name='product_list'),
-    url(r'^(?P<category_slug>[-\w])/$', shop_views.product_list, name='product_list_by_category'),
-    url(r'^(?P<id>\d+)/(?P<slug>[-\w]+)/$', shop_views.product_detail , name='product_detail'),
     url(r'^profile/$', profiles_views.userProfile, name='profile'),
     url(r'^checkout/$', checkout_views.checkout, name='checkout'),
     url(r'^contact/$', contact_views.contact, name='contact'),
