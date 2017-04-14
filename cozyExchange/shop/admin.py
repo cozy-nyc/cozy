@@ -6,4 +6,4 @@ from .models import *
 admin.site.register(Category)
 # admin.site.register(SubCatergory)
 admin.site.register(Product)
-admin.site.register(Listing)
+# admin.site.register(Listing)

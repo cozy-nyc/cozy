@@ -1,6 +1,7 @@
+<!DOCTYPE html>
 {% load staticfiles %}
 
-<!DOCTYPE html>
+
 <html>
 
 <head>
@@ -20,12 +21,15 @@
 <body>
 
     {% include 'navbar.html' %}
+
     {% block header %}
     {% endblock %}
-    <div class="container">
+
+
+    <section id="content">
         {% block content %}
         {% endblock %}
-    </div>
+    </section>
     <!-- /container -->
 
 

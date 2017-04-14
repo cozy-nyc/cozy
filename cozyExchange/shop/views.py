@@ -15,8 +15,8 @@ def about(request):
     return render(request, template, context)
 
 def product(request, id):
-    template = loader.get_template('product.html')
+    template = 'product.html'
     context = {
         'product': Product.objects.get(id=id)
     }
-    return HttpResponse(template.render(context, request))
+    return render(context, request)

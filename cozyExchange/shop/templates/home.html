@@ -1,17 +1,45 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 
 {% block header %}
-  <div id="header" class="intro">
-    <h1>Hi...<br> Now fuck off!</h1>
-  </div>
+<section id="header">
+    <video autoplay loop muted id="backgroundVideo">
+			<source src={% static 'img/background.mp4' %} type="video/mp4" />
+		</video>
+    <div class="container">
+      <div class="row">
+        <div id="intro-search-bar"><!-- search bar --></div>
+      </div>
+
+      <div class="row vertical-center">
+
+        <a href="#">
+        <div class="col-xs-12 col-md-4 ">
+            <h1>Hi...<br> Now fuck off!</h1>
+        </div>
+        </a>
+
+        <a href="#" class="play">
+        <div class="col-xs-12 col-md-8 text-center">
+            <span class="intro-playbutton glyphicon glyphicon-play-circle" aria-hidden="true"></span>
+        </div>
+      </a>
+      </div>
+    </div>
+    </div>
+</section>
 {% endblock %}
 
 {% block content %}
+<div class="container">
   <h1>Cozy.Exchange</h1>
-  {% for category in categories %}
-            <h3>{{ category.name }}</h3>
-            {% for product in category.product_set.all %}
-                <a href="/product/{{ product.id }}">{{ product.name }}</a>
-            {% endfor %}
-        {% endfor %}
+</div>
+{% endblock %}
+
+{% block jquery %}
+  var icon = $('.play');
+  icon.click(function() {
+     icon.toggleClass('active');
+     return false;
+  });
 {% endblock %}
