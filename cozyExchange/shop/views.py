@@ -4,7 +4,10 @@ from .models import *
 
 def home(request):
     context = {
+    products = Product.objects.filter(available=True)
+    products = Product.objects.filter(available=True)
         'categories': Category.objects.all(),
+        'products': Product.objects.filter(available=True)
     }
     template = 'home.html'
     return render(request, template, context)
