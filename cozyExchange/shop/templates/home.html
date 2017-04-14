@@ -7,11 +7,22 @@
 			<source src={% static 'img/background.mp4' %} type="video/mp4" />
 		</video>
     <div class="container">
-      <div class="row">
-        <div id="intro-search-bar"><!-- search bar --></div>
+      <div class="row text-center">
+        <div id="intro-search-bar">
+          <span class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-menu-hamburger"></span></a>
+            <ul class="dropdown-menu">
+                <li role="separator" class="divider"></li>
+                <li class="dropdown-header"></li>
+                <li><a href="{% url 'about' %}">About</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+            </ul>
+        </span>
+        <input type="TextField"></input>
+      </div>
       </div>
 
-      <div class="row vertical-center">
+      <div class="row">
 
         <a href="#">
         <div class="col-xs-12 col-md-4 ">
