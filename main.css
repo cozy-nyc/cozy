@@ -1,0 +1,179 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,600,300);
+@import url(http://fonts.googleapis.com/css?family=Montserrat);
+@import url(https://fonts.googleapis.com/css?family=Oswald:300);
+/*CSS Reset*/
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  color: #fff;
+  background: url('img/background.png') no-repeat center scroll;
+  background-size: cover;
+  -webkit-overflow-scrolling:touch;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 20px;
+  font-family: "industry",sans-serif;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+}
+
+h2 {
+  color: #fff;
+}
+
+a {
+  color: #fff;
+  font-weight: 700;
+}
+
+h3 {
+  font-family: 'Montserrat', sans-serif;
+  text-transform: uppercase;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 1px;
+}
+
+p {
+  margin: 0 0 25px;
+  font-size: 18px;
+  line-height: 36px;
+}
+
+
+a {
+  font-size: 20px;
+  text-decoration: none;
+}
+
+a:hover, a:focus a:visited {
+  text-decoration: none;
+}
+
+.logo {
+  width: 100%;
+  height: auto;
+}
+
+.content-wrapper{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Section 1 */
+.header{
+  position: relative;
+  text-align: center;
+  width: 100%;
+  height:100%;
+}
+.header h1{
+  color: #fff;
+  font-size: 12em;
+}
+.kicker{
+  font-family: "industry",sans-serif;
+  font-weight: 400;
+  color: #fff;
+}
+#backgroundVideo{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  -ms-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+  z-index: -1;
+}
+
+/* Section 2 */
+#section1{
+  background-color: #e6e6e6;
+  text-align: center;
+  position: relative;
+  margin: 0 auto;
+  height: 80%;
+}
+#section1 h1{
+  color: #333;
+}
+#section1 p{
+  color: #b30000;
+  opacity: 0.8;
+}
+
+
+/* Section 3 */
+#section2{
+  background-color: #b30000;
+  text-align: center;
+  position: relative;
+  margin: 0 auto;
+  height: 80%;
+}
+#section2 h1{
+  color: #e6e6e6;
+}
+#section2 p{
+  opacity: 0.6;
+}
+
+/* Section 4  */
+#section3{
+  background-color: #333;
+  text-align: center;
+  position: relative;
+  margin: 0 auto;
+  height: 100%;
+}
+#section3 h1{
+  color: #b30000;
+}
+#section3 p{
+  opacity: 0.6;
+}
+
+/* Mail List Sign-Up Forum*/
+.maillist{
+  padding: 20px;
+}
+.maillist input{
+  height: 30px;
+  border: none;
+  padding: 0 10px;
+}
+
+.maillist button{
+  height: 30px;
+  border: none;
+  padding: 0 10px;
+  background-color: #b30000;
+  color: #e6e6e6;
+}
+
+@media screen and (max-device-width: 800px) {
+    #backgroundVideo {
+        display: none;
+    }
+}
