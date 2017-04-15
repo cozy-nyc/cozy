@@ -30,8 +30,6 @@ class Product(models.Model):
             validators=[MaxValueValidator(10.0), MinValueValidator(1.0)]
             )
     conditionDescription = models.TextField(blank=True)
-    isTeared = models.BooleanField(default = False)
-    isStained = models.BooleanField(default = False)
     location = models.CharField(max_length = 50)
     price = models.DecimalField(
             default=1.00,

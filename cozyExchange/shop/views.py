@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 
 from .models import *
 
@@ -27,14 +27,14 @@ def product_list(request, category_slug=None):
         'categories': categories,
         'products': products,
     }
-    return render(context, 'shop/product/list.html', request)
+    return render(request, 'product/list.html', context)
 
 
 def product_detail(request, id, slug):
     product = get_object_or_404(Product, id=id, slug=slug, available=True)
-    cart_product_form = CartAddProductForm()
+    # cart_product_form = CartAddProductForm()
     context = {
         'product': product,
-        'cart_product_form': cart_product_form
+        # 'cart_product_form': cart_product_form
     }
-    return render(context, 'shop/product/product.html', request)
+    return render(request, 'product/product.html', context)
