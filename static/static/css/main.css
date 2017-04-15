@@ -25,7 +25,7 @@ section{
 
 #header {
     min-height: 60%;  /* Fallback for browsers do NOT support vh unit */
-    min-height: 60vh; /* These two lines are counted as one :-)       */
+    min-height: 60vh; /* These two lines are counted as one :-) */
     display: flex;
     align-items: center;
     background: none;
@@ -51,6 +51,20 @@ section{
   z-index: -1;
   -webkit-filter: blur(10px);
   filter: blur(10px);
+}
+
+footer {
+  padding: 20px;
+  text-align: center;
+  background: #272727;
+}
+
+footer a {
+  color: #F8F5EB;
+}
+footer a:hover {
+  color: #F8F5EB;
+  text-decoration: none;
 }
 
 .navbar-default {
