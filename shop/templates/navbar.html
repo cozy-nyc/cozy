@@ -12,8 +12,6 @@
             <a class="navbar-brand" href="{% url 'home' %}">exchange</a>
         </div>
 
-
-
         <div id="navbar" class="navbar-collapse collapse">
           <div id="intro-search-bar" class="input-group">
             <span class="dropdown input-group-addon">
@@ -33,24 +31,23 @@
                   <li><a href="{% url 'contact' %}">Contact</a></li>
               </ul>
           </span>
-          <div class="">
           <input type="text" placeholder="Search..." class="form-control"></input>
         </div>
-        </div>
-          <ul class="nav navbar-nav navbar-right">
-            {% if not request.user.is_authenticated %}
-                <li><a href="{% url 'account_login' %}">login</a></li>
-                <li><a href="{% url 'account_signup' %}">sign up</a></li>
-            {% else %}
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ user.profile.name }}<span class="glyphicon glyphicon-triangle-bottom"></span></a>
-                <ul class="dropdown-menu">
-                  <li><a href="{% url 'account_logout' %}">logout</a></li>
-                </ul>
-              </li>
-            {% endif %}
-              <!-- <li><a href="#" class="cart"><span class="glyphicon glyphicon-shopping-cart"></span></a></li> -->
-            </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+          {% if not request.user.is_authenticated %}
+              <li><a href="{% url 'account_login' %}">login</a></li>
+              <li><a href="{% url 'account_signup' %}">sign up</a></li>
+          {% else %}
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ user.profile.name }}<span class="glyphicon glyphicon-triangle-bottom"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="{% url 'account_logout' %}">logout</a></li>
+              </ul>
+            </li>
+          {% endif %}
+            <!-- <li><a href="#" class="cart"><span class="glyphicon glyphicon-shopping-cart"></span></a></li> -->
+          </ul>
         </div>
     </div>
 </nav>
