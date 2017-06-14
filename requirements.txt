@@ -2,3 +2,5 @@ Django
 django-allauth
 stripe
 psycopg2
+pillow
+django-crispy-forms

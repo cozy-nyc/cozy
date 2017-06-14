@@ -31,7 +31,7 @@ SECRET_KEY = '5e8$r+s03xq=&p^@nw7v6f=p3nv)4j)9gmqha=xh%2o$x2bcq+'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0']
 
 
 # Application definition
@@ -51,8 +51,11 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'checkout',
-    'stripe'
+    'stripe',
+    'crispy_forms'
 ]
+
+CRISPY_TEMPLATE_PACK ='bootstrap3'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
