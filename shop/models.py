@@ -58,7 +58,10 @@ class SubCatergory(models.Model):
 
 class Item(models.Model):
     """
-        This is a model for
+        This is a model for items sold on the exchange.
+
+        Attributes:
+            name: A string of the name of the item
     """
     name = models.CharField(max_length=200, db_index=True)
     slug = models.SlugField(max_length=200, db_index=True)
@@ -118,7 +121,10 @@ class Item(models.Model):
 
 class Listing(models.Model):
     """
-        Listing Model
+        This is a model for listings on the exchange.
+
+        Attributes:
+            name: A string of the name of the item that the listing is tied to
     """
     seller = models.ForeignKey('profiles.Profile')
     item = models.ForeignKey(Item, related_name='Lisiting')
