@@ -5,7 +5,7 @@ from .models import *
 def home(request):
     context = {
         'categories': Category.objects.all(),
-        'products': Product.objects.filter(available=True)
+        'items': Item.objects.filter(available=True)
     }
     template = 'home.html'
     return render(request, template, context)
@@ -15,26 +15,26 @@ def about(request):
     template = 'about.html'
     return render(request, template, context)
 
-def product_list(request, category_slug=None):
+def item_list(request, category_slug=None):
     category = None
     categories = Category.objects.all()
-    products = Product.objects.filter(available=True)
+    items = Item.objects.filter(available=True)
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
-        products = products.filter(category=category)
+        items = items.filter(category=category)
     context = {
         'category': category,
         'categories': categories,
-        'products': products,
+        'items': items,
     }
-    return render(request, 'product/list.html', context)
+    return render(request, 'item/list.html', context)
 
-
-def product_detail(request, id, slug):
-    product = get_object_or_404(Product, id=id, slug=slug, available=True)
-    # cart_product_form = CartAddProductForm()
+#Change to listings
+def item_detail(request, id, slug):
+    item = get_object_or_404(Item, id=id, slug=slug, available=True)
+    # cart_item_form = CartAddItemForm()
     context = {
-        'product': product,
-        # 'cart_product_form': cart_product_form
+        'item': item,
+        # 'cart_item_form': cart_item_form
     }
-    return render(request, 'product/product.html', context)
+    return render(request, 'item/item.html', context)

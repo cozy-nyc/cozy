@@ -7,11 +7,11 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ['name', 'slug']
     prepopulated_fields= {'slug': ('name',)}
 admin.site.register(Category, CategoryAdmin)
-# admin.site.register(SubCatergory)
-class ProductAdmin(admin.ModelAdmin):
-    list_display = ['name','slug','category', 'price', 'seller', 'stock','available', 'created','updated']
-    list_filter = ['available', 'created', 'seller', 'updated', 'category']
-    list_editable = ['price', 'stock', 'available']
+admin.site.register(SubCatergory)
+class ItemAdmin(admin.ModelAdmin):
+    list_display = ['name','slug','category', 'avgSoldPrice',]
+    list_filter = ['category']
+    list_editable = []
     prepopulated_fields = {'slug': ('name',)}
-admin.site.register(Product, ProductAdmin)
-# admin.site.register(Listing)
+admin.site.register(Item, ItemAdmin)
+admin.site.register(Listing)
