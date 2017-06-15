@@ -1,7 +1,8 @@
-from django.shortcuts import render
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import(authenticate, get_user_model, login, logout,)
-from .forms import UserLoginForm
+from django.shortcuts import render , redirect
+from .forms import UserLoginForm, UserSignUpForm
 
 
 @login_required
@@ -20,16 +21,34 @@ def login_view(request):
     if form.is_valid():
         username = form.cleaned_data.get("username")
         password = form.cleaned_data.get("password")
+        user = authenticate(username = username, password = password)
+        login(request, user)
+        return redirect("/")
 
     return render(request, "login.html" , {"form":form})
 
 
 
 
-#Empty Not in use yet
-def register_view(request):
-    return render('more memes')
+#Sign up view that passes the from from form.py
+def signup_view(request):
+    next = request.GET.get('next')
+    form = UserSignUpForm(request.POST or None)
+    if form.is_valid():
+        user = form.save(commit=False)
+        password = form.cleaned_data.get('password')
+        user.set_password(password)
+        user.save()
+        new_user = authenticate(username=user.username, password=password)
+        login(request, new_user)
+        if next:
+            return redirect(next)
+        return redirect("/")
 
-#Empty Not in use yet
+
+    return render(request, "signup.html",{"form":form})
+
+#Simple logout
 def logout_view(request):
-    return render('even MORE memes')
+    logout(request)
+    return redirect("/")
