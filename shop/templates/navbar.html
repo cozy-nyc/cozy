@@ -18,7 +18,7 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-menu-hamburger"></span></a>
               <ul class="dropdown-menu">
                   <li {% if not category %} class="selected" {% endif %}>
-                    <a href="{% url 'shop:product_list' %}">All</a>
+                    <a href="{% url 'shop:item_list' %}">All</a>
                   </li>
                 {% for c in categories %}
                   <li {% if category.slug == c.slug %}class="selected"{% endif %}>
