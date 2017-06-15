@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Profile, UserStripe
+from .models import Profile #UserStripe
 
 class ProfileAdmin(admin.ModelAdmin):
     class Meta:
@@ -9,8 +9,8 @@ class ProfileAdmin(admin.ModelAdmin):
 
 admin.site.register(Profile, ProfileAdmin)
 
-class UserStripeAdmin(admin.ModelAdmin):
-    class Meta:
-        model = UserStripe
+#class UserStripeAdmin(admin.ModelAdmin):
+#    class Meta:
+#        model = UserStripe
 
-admin.site.register(UserStripe, UserStripeAdmin)
+#       admin.site.register(UserStripe, UserStripeAdmin)

@@ -6,6 +6,9 @@ from allauth.account.signals import user_logged_in, user_signed_up
 import stripe
 stripe.api_key = settings.STRIPE_SECERT_KEY
 
+
+
+#An extention of the User Class
 class Profile(models.Model):
     name = models.CharField(max_length = 20)
     user = models.OneToOneField(settings.AUTH_USER_MODEL, null = True, blank = True)
@@ -18,11 +21,17 @@ class Profile(models.Model):
         default = 3.0,
         validators=[MaxValueValidator(5.0), MinValueValidator(0.0)]
     )
+    profPic = models.ImageField(null = True, blank = True)
+
     #Item/list
 
     def __str__(self):
         return self.name
 
+
+
+#Commenting out Stripe for now
+'''
 class UserStripe(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL)
     stripe_id = models.CharField(max_length=200, null=True, blank=True)
@@ -52,3 +61,4 @@ user_logged_in.connect(stripeCallback)
 user_logged_in.connect(profileCallback)
 user_signed_up.connect(profileCallback)
 user_signed_up.connect(stripeCallback)
+'''
