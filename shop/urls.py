@@ -1,6 +1,6 @@
 from django.conf.urls import url
 from . import views
-from profiles.views import (login_view, signup_view, logout_view)
+from profiles.views import (login_view, signup_view, logout_view, ProfileView )
 
 urlpatterns = [
     url(r'^$', views.item_list, name='item_list'),
@@ -9,6 +9,8 @@ urlpatterns = [
     url(r'^login/', login_view, name='login'),
     url(r'^logout/', logout_view, name='logout'),
     url(r'^signup/', signup_view, name='signup'),
+    url(r'^(?P<username>[\w.@+-]+)/$', ProfileView.as_view(), name='detail'), # /tweet/1/
+
 
 
 ]

@@ -29,7 +29,6 @@ urlpatterns = [
     url(r'^$', shop_views.home, name='home'),
     url(r'^', include('shop.urls', namespace='shop')),
     url(r'^about/$', shop_views.about, name='about'),
-    url(r'^profile/$', profiles_views.userProfile, name='profile'),
     url(r'^checkout/$', checkout_views.checkout, name='checkout'),
     url(r'^contact/$', contact_views.contact, name='contact'),
     url(r'^', include('allauth.urls')),
