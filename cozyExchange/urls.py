@@ -26,13 +26,12 @@ from checkout import views as checkout_views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^', include('profiles.urls', namespace="profiles")),
     url(r'^$', shop_views.home, name='home'),
     url(r'^', include('shop.urls', namespace='shop')),
     url(r'^about/$', shop_views.about, name='about'),
-    url(r'^profile/$', profiles_views.userProfile, name='profile'),
     url(r'^checkout/$', checkout_views.checkout, name='checkout'),
     url(r'^contact/$', contact_views.contact, name='contact'),
-    url(r'^', include('allauth.urls')),
 ]
 
 if settings.DEBUG:
