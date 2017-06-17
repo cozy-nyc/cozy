@@ -4,22 +4,17 @@ html, body {
 }
 
 body {
-  background: #272727;
-  color: #F8F5EB;
 }
 
 h1 {
-  color: #F8F5EB;
 	font-weight: 700;
 }
 
 p {
-  color: #F8F5EB;
 }
 
 section{
   position: relative;
-  background: #272727;
   min-height: 40%;
 }
 
@@ -56,20 +51,17 @@ section{
 footer {
   padding: 20px;
   text-align: center;
-  background: #272727;
 }
 
 footer a {
-  color: #F8F5EB;
 }
 footer a:hover {
-  color: #F8F5EB;
   text-decoration: none;
 }
 
 .navbar-default {
     background-color: rgba(0,0,0,0);
-		border-color: none;
+		border: none;
 		margin: 0;
 }
 
@@ -127,7 +119,6 @@ footer a:hover {
 
 .content-wrapper {
 	max-width: 1140px;
-	background: #fff;
 	margin: 0 auto;
 	margin-top: 25px;
 	margin-bottom: 10px;

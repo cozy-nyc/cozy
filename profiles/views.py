@@ -1,12 +1,11 @@
 from django.shortcuts import render
+from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import(authenticate, get_user_model, login, logout,)
-from django.shortcuts import render , redirect
-from .forms import UserLoginForm, UserSignUpForm
-from .models import Profile
-from django.views.generic import DetailView
 
-User = get_user_model()
+from django.db import transaction
+
+from profiles.forms import *
+
 
 @login_required
 def userProfile(request):
@@ -17,57 +16,40 @@ def userProfile(request):
     template = 'profile.html'
     return render(request, template, context)
 
+def brandProfile(request):
+    return(request)
 
+def signup(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('home')
+    else:
+        form = SignUpForm()
+    return render(request, 'signup.html', {'form': form})
 
-
-
-class ProfileView(DetailView):
-    template = "profile.html"
-    queryset = User.objects.all()
-    def get_object(self):
-        return get_object_or_404(User, username__iexact=self.kwargs.get("username"))
-
-    def get_context(self):
-        context = super(ProfileView, self).get_context(*args, **kwargs)
-        return context
-
-
-
-#Returns the view for Login.html
-#The form context is passed toward UserLoginForm which is located in forms.py
-def login_view(request):
-    form = UserLoginForm(request.POST or None)
-    if form.is_valid():
-        username = form.cleaned_data.get("username")
-        password = form.cleaned_data.get("password")
-        user = authenticate(username = username, password = password)
-        login(request, user)
-        return redirect("/")
-
-    return render(request, "login.html" , {"form":form})
-
-
-
-
-#Sign up view that passes the from from form.py
-def signup_view(request):
-    next = request.GET.get('next')
-    form = UserSignUpForm(request.POST or None)
-    if form.is_valid():
-        user = form.save(commit=False)
-        password = form.cleaned_data.get('password')
-        user.set_password(password)
-        user.save()
-        new_user = authenticate(username=user.username, password=password)
-        login(request, new_user)
-        if next:
-            return redirect(next)
-        return redirect("/")
-
-
-    return render(request, "signup.html",{"form":form})
-
-#Simple logout
-def logout_view(request):
-    logout(request)
-    return redirect("/")
+@login_required
+@transaction.atomic
+def update_profile(request):
+    if request.method == 'POST':
+        user_form = UserForm(request.POST, instance=request.user)
+        profile_form = ProfileForm(request.POST, instance=request.user.profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, _('Your profile was successfully updated!'))
+            return redirect('settings:profile')
+        else:
+            messages.error(request, _('Please correct the error below.'))
+    else:
+        user_form = UserForm(instance=request.user)
+        profile_form = ProfileForm(instance=request.user.profile)
+    return render(request, 'profile.html', {
+        'user_form': user_form,
+        'profile_form': profile_form
+    })
