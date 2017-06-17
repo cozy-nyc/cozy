@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
+
 from django.db import transaction
 
 from profiles.forms import *
+
 
 @login_required
 def userProfile(request):
