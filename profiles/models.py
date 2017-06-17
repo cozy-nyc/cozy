@@ -1,5 +1,4 @@
 from django.db import models
-from django.contrib.auth.models import User
 from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db.models.signals import post_save
@@ -10,8 +9,11 @@ import stripe
 stripe.api_key = settings.STRIPE_SECERT_KEY
 
 class Profile(models.Model):
-    name = models.CharField(max_length = 20)
-    user = models.OneToOneField(User,  on_delete=models.CASCADE)
+    displayName = models.CharField(
+        max_length=20,
+        unique=True
+        )
+    user = models.OneToOneField(settings.AUTH_USER_MODEL,  on_delete=models.CASCADE)
     location = models.CharField(
         max_length = 40,
         default=''
@@ -24,7 +26,7 @@ class Profile(models.Model):
     #Item/list
 
     def __str__(self):
-        return self.name
+        return self.displayName
 
 # class UserStripe(models.Model):
 #     user = models.OneToOneField(settings.AUTH_USER_MODEL)
@@ -46,8 +48,7 @@ class Profile(models.Model):
 #         user_stripe_account.save()
 #
 
-@receiver(post_save, sender=User)
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def updateUserProfile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
-    instance.profile.save()
