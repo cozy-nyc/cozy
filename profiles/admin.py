@@ -9,8 +9,8 @@ class ProfileAdmin(admin.ModelAdmin):
 
 admin.site.register(Profile, ProfileAdmin)
 
-#class UserStripeAdmin(admin.ModelAdmin):
-#    class Meta:
-#        model = UserStripe
-
-#       admin.site.register(UserStripe, UserStripeAdmin)
+# class UserStripeAdmin(admin.ModelAdmin):
+#     class Meta:
+#         model = UserStripe
+#
+#        admin.site.register(UserStripe, UserStripeAdmin)

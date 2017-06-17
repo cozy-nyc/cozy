@@ -1,4 +1,4 @@
-
+from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import(authenticate, get_user_model, login, logout,)
 from django.shortcuts import render , redirect
@@ -6,8 +6,19 @@ from .forms import UserLoginForm, UserSignUpForm
 from .models import Profile
 from django.views.generic import DetailView
 
-
 User = get_user_model()
+
+@login_required
+def userProfile(request):
+    user = request.user
+    context = {
+        'user': user
+    }
+    template = 'profile.html'
+    return render(request, template, context)
+
+
+
 
 
 class ProfileView(DetailView):
@@ -19,10 +30,6 @@ class ProfileView(DetailView):
     def get_context(self):
         context = super(ProfileView, self).get_context(*args, **kwargs)
         return context
-
-
-
-
 
 
 
