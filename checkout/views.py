@@ -2,8 +2,8 @@ from django.conf import settings
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
-import stripe
-stripe.api_key = settings.STRIPE_SECERT_KEY
+# import stripe
+# stripe.api_key = settings.STRIPE_SECERT_KEY
 
 # Create your views here.
 @login_required

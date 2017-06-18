@@ -78,7 +78,7 @@ TEMPLATES = [
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
-)
+    )
 
 WSGI_APPLICATION = 'cozyExchange.wsgi.application'
 
@@ -148,8 +148,6 @@ SITE_ID = 1
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 
-AUTH_USER_MODEL = 'auth.User'
-
 # ACCOUNT_AUTHENTICATION_METHOD = "username_email"
 # ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = LOGIN_URL
 # ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = None
@@ -178,8 +176,8 @@ AUTH_USER_MODEL = 'auth.User'
 
 #stripe
 #Test
-STRIPE_PUBLISHBLE_KEY = 'pk_test_FdNbuY3HOw6hMkBA9uHh4A1m'
-STRIPE_SECERT_KEY = 'sk_test_j72JVcWLX4XSKZY8lzdtcJHt'
+# STRIPE_PUBLISHBLE_KEY = 'pk_test_FdNbuY3HOw6hMkBA9uHh4A1m'
+# STRIPE_SECERT_KEY = 'sk_test_j72JVcWLX4XSKZY8lzdtcJHt'
 
 #Live
 # STRIPE_PUBLISHBLE_KEY = 'pk_live_MiY76HJdhaCXjokwKyfTy9yO'

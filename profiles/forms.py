@@ -5,11 +5,18 @@ from django.contrib.auth.models import User
 from profiles.models import Profile
 
 class SignUpForm(UserCreationForm):
-    displayName = forms.CharField(max_length=20, help_text='Required.')
+    location = forms.CharField(max_length=20, help_text='Required.')
 
     class Meta:
         model = User
-        fields = ('displayName','email', 'first_name', 'last_name', 'password1', 'password2', )
+        fields = ('username','email', 'password1', 'password2', )
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        username = self.cleaned_data.get('username')
+        if email and User.objects.filter(email=email).exclude(username=username).exists():
+            raise forms.ValidationError(u'Email addresses must be unique.')
+        return email
 
 # Placements for user update
 class UserForm(forms.ModelForm):
