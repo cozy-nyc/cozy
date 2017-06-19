@@ -1,15 +1,15 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
+from cuser.models import User
 
-from profiles.models import Profile
 
 class SignUpForm(UserCreationForm):
-    location = forms.CharField(max_length=20, help_text='Required.')
+    email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
+    location = forms.CharField(max_length=40, help_text='Required.')
 
     class Meta:
         model = User
-        fields = ('username','email', 'password1', 'password2', )
+        fields = ('email', 'location', 'password1', 'password2')
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
@@ -17,14 +17,3 @@ class SignUpForm(UserCreationForm):
         if email and User.objects.filter(email=email).exclude(username=username).exists():
             raise forms.ValidationError(u'Email addresses must be unique.')
         return email
-
-# Placements for user update
-class UserForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ()
-
-class ProfileForm(forms.ModelForm):
-    class Meta:
-        model = Profile
-        fields = ()

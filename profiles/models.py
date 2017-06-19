@@ -1,11 +1,7 @@
-from __future__ import unicode_literals
-
 from django.db import models
 from django.conf import settings
 from django.core.mail import send_mail
 from django.contrib.auth.models import PermissionsMixin
-from django.contrib.auth.base_user import AbstractBaseUser
-from django.utils.translation import ugettext_lazy as _
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -14,22 +10,27 @@ from django.dispatch import receiver
 # import stripe
 # stripe.api_key = settings.STRIPE_SECERT_KEY
 
-
-class Profile(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL,  on_delete=models.CASCADE)
-    location = models.CharField(
-        max_length = 40,
-        default=''
-    )
-    bio = models.TextField(default='')
-    rating = models.FloatField(
-        default = 3.0,
-        validators=[MaxValueValidator(5.0), MinValueValidator(0.0)]
-    )
-    #Item/list
-
-    def __str__(self):
-        return self.user.username
+# class Profile(models.Model):
+#     """
+#         This is a model extends the user model and provides details on user that are displayed publicly.
+#
+#         Attributes:
+#             username: A string of the username tied to the profile
+#     """
+#     user = models.OneToOneField(settings.AUTH_USER_MODEL,  on_delete=models.CASCADE)
+#     email_confirmed = models.BooleanField(default=False)
+#     location = models.CharField(
+#         max_length = 40,
+#         default=''
+#     )
+#     bio = models.TextField(default='')
+#     rating = models.FloatField(
+#         default = 3.0,
+#         validators=[MaxValueValidator(5.0), MinValueValidator(0.0)]
+#     )
+#
+#     def __str__(self):
+#         return self.user.username
 
 # class UserStripe(models.Model):
 #     user = models.OneToOneField(settings.AUTH_USER_MODEL)
@@ -51,7 +52,7 @@ class Profile(models.Model):
 #         user_stripe_account.save()
 #
 
-@receiver(post_save, sender=settings.AUTH_USER_MODEL)
-def updateUserProfile(sender, instance, created, **kwargs):
-    if created:
-        Profile.objects.create(user=instance)
+# @receiver(post_save, sender=settings.AUTH_USER_MODEL)
+# def updateUserProfile(sender, instance, created, **kwargs):
+#     if created:
+#         Profile.objects.create(user=instance)

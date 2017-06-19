@@ -18,6 +18,7 @@ EMAIL_HOST_PASSWORD = 'pasword'
 EMAIL_PORT = '587'
 EMAIL_USE_TLS = True
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
@@ -45,7 +46,7 @@ INSTALLED_APPS = [
     'contact',
     'shop',
     'checkout',
-    'stripe'
+    'cuser'
 ]
 
 MIDDLEWARE = [
@@ -147,6 +148,8 @@ SITE_ID = 1
 
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
+
+AUTH_USER_MODEL = 'cuser.User'
 
 # ACCOUNT_AUTHENTICATION_METHOD = "username_email"
 # ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = LOGIN_URL
