@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'checkout',
-    'stripe'
+    'stripe',
+    'postman',
 ]
 
 MIDDLEWARE = [
