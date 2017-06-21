@@ -10,27 +10,24 @@ from django.dispatch import receiver
 # import stripe
 # stripe.api_key = settings.STRIPE_SECERT_KEY
 
-# class Profile(models.Model):
-#     """
-#         This is a model extends the user model and provides details on user that are displayed publicly.
-#
-#         Attributes:
-#             username: A string of the username tied to the profile
-#     """
-#     user = models.OneToOneField(settings.AUTH_USER_MODEL,  on_delete=models.CASCADE)
-#     email_confirmed = models.BooleanField(default=False)
-#     location = models.CharField(
-#         max_length = 40,
-#         default=''
-#     )
-#     bio = models.TextField(default='')
-#     rating = models.FloatField(
-#         default = 3.0,
-#         validators=[MaxValueValidator(5.0), MinValueValidator(0.0)]
-#     )
-#
-#     def __str__(self):
-#         return self.user.username
+class Profile(models.Model):
+    """
+        This is a model extends the user model and provides details on user that are displayed publicly.
+
+        Attributes:
+            username: A string of the username tied to the profile
+    """
+    user = models.OneToOneField(settings.AUTH_USER_MODEL,  on_delete=models.CASCADE)
+    location = models.CharField(
+        max_length = 40,
+        default=''
+    )
+    bio = models.TextField(default='')
+    rating = models.FloatField(
+        default = 3.0,
+        validators=[MaxValueValidator(5.0), MinValueValidator(0.0)]
+    )
+
 
 # class UserStripe(models.Model):
 #     user = models.OneToOneField(settings.AUTH_USER_MODEL)
