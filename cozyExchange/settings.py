@@ -52,6 +52,11 @@ INSTALLED_APPS = [
     'postman',
 ]
 
+POSTMAN_AUTO_MODERATE_AS = True
+POSTMAN_DISALLOW_ANONYMOUS = True
+POSTMAN_DISALLOW_MULTIRECIPIENTS = True
+POSTMAN_DISABLE_USER_EMAILING = True
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
