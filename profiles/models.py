@@ -49,7 +49,7 @@ class Profile(models.Model):
 #         user_stripe_account.save()
 #
 
-# @receiver(post_save, sender=settings.AUTH_USER_MODEL)
-# def updateUserProfile(sender, instance, created, **kwargs):
-#     if created:
-#         Profile.objects.create(user=instance)
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+def updateUserProfile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
