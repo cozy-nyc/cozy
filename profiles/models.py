@@ -27,6 +27,7 @@ class Profile(models.Model):
         default = 3.0,
         validators=[MaxValueValidator(5.0), MinValueValidator(0.0)]
     )
+    is_business = models.BooleanField(default=False)
 
 
 # class UserStripe(models.Model):

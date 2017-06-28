@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.core.mail import send_mail
+from django.utils import timezone
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.utils.translation import ugettext_lazy as _
@@ -14,16 +15,12 @@ from .managers import UserManager
 class User(AbstractBaseUser, PermissionsMixin):
     # username = models.CharField(_('username'),unique=True)
     email = models.EmailField(_('email address'), unique=True)
-    username = models.CharField(
-        _('username'),
-        max_length=30,
-        # unique = True
-    )
+    username = models.CharField(_('username'), max_length=30, unique = True)
     # phone_number
     email_confirmed = models.BooleanField(default=False)
     first_name = models.CharField(_('first name'), max_length=30, blank=True)
     last_name = models.CharField(_('last name'), max_length=30, blank=True)
-    date_joined = models.DateTimeField(_('date joined'), auto_now_add=True)
+    date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
     is_active = models.BooleanField(_('active'), default=False)
     is_staff = models.BooleanField(_('staff'), default=False)
     avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
