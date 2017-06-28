@@ -20,18 +20,15 @@ from django.conf.urls import url, include
 from django.contrib import admin
 
 from shop import views as shop_views
-from profiles import views as profiles_views
 from contact import views as contact_views
-from checkout import views as checkout_views
 
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^', include('profiles.urls', namespace="profiles")),
+    url(r'^', include('cuser.urls', namespace="users")),
     url(r'^$', shop_views.home, name='home'),
     url(r'^', include('shop.urls', namespace='shop')),
     url(r'^about/$', shop_views.about, name='about'),
-    url(r'^checkout/$', checkout_views.checkout, name='checkout'),
     url(r'^contact/$', contact_views.contact, name='contact'),
     url(r'^messages/', include('postman.urls', namespace='postman', app_name = 'postman')),
 

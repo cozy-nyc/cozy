@@ -1,18 +1,22 @@
 from django.db import models
 from django.conf import settings
+from django.core.mail import send_mail
+from django.contrib.auth.models import PermissionsMixin
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 
-import stripe
-stripe.api_key = settings.STRIPE_SECERT_KEY
+# import stripe
+# stripe.api_key = settings.STRIPE_SECERT_KEY
 
 class Profile(models.Model):
-    displayName = models.CharField(
-        max_length=20,
-        unique=True
-        )
+    """
+        This is a model extends the user model and provides details on user that are displayed publicly.
+
+        Attributes:
+            username: A string of the username tied to the profile
+    """
     user = models.OneToOneField(settings.AUTH_USER_MODEL,  on_delete=models.CASCADE)
     location = models.CharField(
         max_length = 40,
@@ -23,10 +27,8 @@ class Profile(models.Model):
         default = 3.0,
         validators=[MaxValueValidator(5.0), MinValueValidator(0.0)]
     )
-    #Item/list
+    is_business = models.BooleanField(default=False)
 
-    def __str__(self):
-        return self.displayName
 
 # class UserStripe(models.Model):
 #     user = models.OneToOneField(settings.AUTH_USER_MODEL)

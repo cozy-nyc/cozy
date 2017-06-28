@@ -126,7 +126,7 @@ class Listing(models.Model):
         Attributes:
             name: A string of the name of the item that the listing is tied to
     """
-    seller = models.ForeignKey('profiles.Profile')
+    # seller = models.ForeignKey('profiles.Profile')
     item = models.ForeignKey(Item, related_name='Lisiting')
     conditionRating = models.FloatField(
         default=5.0,

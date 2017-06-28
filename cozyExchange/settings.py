@@ -20,7 +20,6 @@ EMAIL_HOST_PASSWORD = 'pasword'
 EMAIL_PORT = '587'
 EMAIL_USE_TLS = True
 
-
 # Quick-start development settings - unsuitable for production[-]
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
@@ -46,10 +45,8 @@ INSTALLED_APPS = [
     'profiles',
     'contact',
     'shop',
-    'checkout',
-    'stripe',
     'postman',
-
+    'cuser'
 ]
 
 POSTMAN_AUTO_MODERATE_AS = True
@@ -88,7 +85,7 @@ TEMPLATES = [
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
-)
+    )
 
 WSGI_APPLICATION = 'cozyExchange.wsgi.application'
 
@@ -158,7 +155,7 @@ SITE_ID = 1
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 
-AUTH_USER_MODEL = 'auth.User'
+AUTH_USER_MODEL = 'cuser.User'
 
 # ACCOUNT_AUTHENTICATION_METHOD = "username_email"
 # ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = LOGIN_URL
@@ -188,8 +185,8 @@ AUTH_USER_MODEL = 'auth.User'
 
 #stripe
 #Test
-STRIPE_PUBLISHBLE_KEY = 'pk_test_FdNbuY3HOw6hMkBA9uHh4A1m'
-STRIPE_SECERT_KEY = 'sk_test_j72JVcWLX4XSKZY8lzdtcJHt'
+# STRIPE_PUBLISHBLE_KEY = 'pk_test_FdNbuY3HOw6hMkBA9uHh4A1m'
+# STRIPE_SECERT_KEY = 'sk_test_j72JVcWLX4XSKZY8lzdtcJHt'
 
 #Live
 # STRIPE_PUBLISHBLE_KEY = 'pk_live_MiY76HJdhaCXjokwKyfTy9yO'
