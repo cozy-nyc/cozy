@@ -1,11 +1,8 @@
-
+from django.shortcuts import render
+from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import(authenticate, get_user_model, login, logout,)
-from django.shortcuts import render , redirect
-from .forms import UserLoginForm, UserSignUpForm
-from .models import Profile
-from django.views.generic import DetailView
-
+from django.shortcuts import redirect
+from django.db import transaction
 
 User = get_user_model()
 
@@ -19,3 +16,4 @@ class ProfileView(DetailView):
     def get_context(self):
         context = super(ProfileView, self).get_context(*args, **kwargs)
         return context
+

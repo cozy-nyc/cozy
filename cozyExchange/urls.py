@@ -27,15 +27,14 @@ from checkout import views as checkout_views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^', include('profiles.urls', namespace="profiles")),
     url(r'^$', shop_views.home, name='home'),
     url(r'^', include('shop.urls', namespace='shop')),
     url(r'^about/$', shop_views.about, name='about'),
     url(r'^checkout/$', checkout_views.checkout, name='checkout'),
     url(r'^contact/$', contact_views.contact, name='contact'),
-    url(r'^', include('allauth.urls')),
     url(r'^messages/', include('postman.urls', namespace='postman', app_name = 'postman')),
 
-]
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

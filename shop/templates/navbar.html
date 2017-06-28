@@ -34,21 +34,6 @@
           <input type="text" placeholder="Search..." class="form-control"></input>
         </div>
 
-        <ul class="nav navbar-nav navbar-right">
-          {% if not request.user.is_authenticated %}
-              <li><a href="{% url 'account_login' %}">login</a></li>
-              <li><a href="{% url 'account_signup' %}">sign up</a></li>
-          {% else %}
-            <li>{{request.user}} </li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ user.profile.name }}<span class="glyphicon glyphicon-triangle-bottom"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="{% url 'account_logout' %}">logout</a></li>
-              </ul>
-            </li>
-          {% endif %}
-            <!-- <li><a href="#" class="cart"><span class="glyphicon glyphicon-shopping-cart"></span></a></li> -->
-          </ul>
         </div>
     </div>
 </nav>

@@ -1,13 +1,26 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.models import User
 
-# Register your models here.
-from .models import Profile #UserStripe
+from .models import Profile
 
-class ProfileAdmin(admin.ModelAdmin):
-    class Meta:
-        model = Profile
+class ProfileInline(admin.StackedInline):
+    model = Profile
+    can_delete = False
+    verbose_name_plural = 'Profile'
+    fk_name = 'user'
 
-admin.site.register(Profile, ProfileAdmin)
+class CustomUserAdmin(UserAdmin):
+    inlines = (ProfileInline, )
+
+    def get_inline_instances(self, request, obj=None):
+        if not obj:
+            return list()
+        return super(CustomUserAdmin, self).get_inline_instances(request, obj)
+
+
+admin.site.unregister(User)
+admin.site.register(User, CustomUserAdmin)
 
 # class UserStripeAdmin(admin.ModelAdmin):
 #     class Meta:

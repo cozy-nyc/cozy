@@ -1,10 +1,6 @@
 Django
-django-allauth
 stripe
 psycopg2
 pillow
 django-crispy-forms
-django-model-utils
-django-treebeard
-django-autoslug
-python-slugify
+

@@ -1,15 +1,19 @@
 from django.db import models
 from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
-from allauth.account.signals import user_logged_in, user_signed_up
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 import stripe
 stripe.api_key = settings.STRIPE_SECERT_KEY
 
 class Profile(models.Model):
-    name = models.CharField(max_length = 20)
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, null = True, blank = True)
+    displayName = models.CharField(
+        max_length=20,
+        unique=True
+        )
+    user = models.OneToOneField(settings.AUTH_USER_MODEL,  on_delete=models.CASCADE)
     location = models.CharField(
         max_length = 40,
         default=''
@@ -22,17 +26,17 @@ class Profile(models.Model):
     #Item/list
 
     def __str__(self):
-        return self.name
+        return self.displayName
 
-class UserStripe(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL)
-    stripe_id = models.CharField(max_length=200, null=True, blank=True)
-
-    def __str__(self):
-        if self.stripe_id:
-            return str(self.stripe_id)
-        else:
-            return self.user.username
+# class UserStripe(models.Model):
+#     user = models.OneToOneField(settings.AUTH_USER_MODEL)
+#     stripe_id = models.CharField(max_length=200, null=True, blank=True)
+#
+#     def __str__(self):
+#         if self.stripe_id:
+#             return str(self.stripe_id)
+#         else:
+#             return self.user.username
 
 # def stripeCallback(sender, request, user, **kwargs):
 #     user_stripe_account, created = UserStripe.objects.get_or_create(user=user)
@@ -43,8 +47,8 @@ class UserStripe(models.Model):
 #         user_stripe_account.stripe_id = new_stripe_id['id']
 #         user_stripe_account.save()
 #
-# def profileCallback(sender, request, user, **kwargs):
-#     userProfile, is_created = Profile.objects.get_or_create(user=user)
-#     if is_created:
-#         userProfile.name = user.username
-#         userProfile.save()
+
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+def updateUserProfile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)

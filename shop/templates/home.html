@@ -3,9 +3,6 @@
 
 {% block header %}
 <section id="header">
-    <video autoplay loop muted id="backgroundVideo">
-			<source src={% static 'img/background.mp4' %} type="video/mp4" />
-		</video>
     <div class="container">
 
       <div class="row">
@@ -29,7 +26,6 @@
 
 {% block content %}
 <div class="container">
-
   <div id="main" class="item-list">
     <h3>{% if category %}{{ category.name }}{% else %}items{% endif %}</h3>
     {% for item in items %}
