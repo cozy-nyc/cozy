@@ -12,6 +12,8 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'hello@cozy.nyc'
 EMAIL_HOST_PASSWORD = 'pasword'
@@ -50,6 +52,7 @@ INSTALLED_APPS = [
     'checkout',
     'stripe',
     'postman',
+
 ]
 
 POSTMAN_AUTO_MODERATE_AS = True
@@ -62,6 +65,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',

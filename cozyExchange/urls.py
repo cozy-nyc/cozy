@@ -33,7 +33,8 @@ urlpatterns = [
     url(r'^checkout/$', checkout_views.checkout, name='checkout'),
     url(r'^contact/$', contact_views.contact, name='contact'),
     url(r'^', include('allauth.urls')),
-    url(r'^messages/', include('postman.urls', namespace='postman', app_name = 'postman'))
+    url(r'^messages/', include('postman.urls', namespace='postman', app_name = 'postman')),
+
 ]
 
 if settings.DEBUG:

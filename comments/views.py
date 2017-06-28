@@ -9,8 +9,25 @@ from .forms import CommentForm
 from .models import Comment
 
 
+
 @login_required
 def comment_delete(request,id):
+    """This is the view for deleting comments.
+    Using user.auth we are able to make sure that users are only able to delete their own comments.
+
+    Args:
+        request: the http request
+        id: integer that represents the ID of the comment
+
+    Return:
+        All information needed in order to delete comments.
+
+        request:
+        context: a dictionary that contains{
+            obj: the comment that is being deleted
+            }
+        confirm_delete.html: the html template in which all of the context is being passed into
+    """
     try:
         obj = Comment.objects.get(id=id)
     except:
@@ -34,6 +51,19 @@ def comment_delete(request,id):
 
 
 def comment_thread (request, id):
+    """This is the display for the comment thread. It allows for users to post new comments as well as reply to comments
+    This entire system relies heavily on user.auth
+
+    Args:
+        request: html response
+        id: an integer that represents the id of the comment
+
+    Return:
+        All the comments within a thread. All the comment responses to each of the comments.
+        The reply button is also returned for users to reply to comments.
+        All of this is passed toward the template "comment_thread.html"
+
+    """
     try:
         obj = Comment.objects.get(id=id)
     except:
