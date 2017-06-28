@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
+
 from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import url, include
@@ -32,7 +33,8 @@ urlpatterns = [
     url(r'^about/$', shop_views.about, name='about'),
     url(r'^checkout/$', checkout_views.checkout, name='checkout'),
     url(r'^contact/$', contact_views.contact, name='contact'),
-]
+    url(r'^messages/', include('postman.urls', namespace='postman', app_name = 'postman')),
+
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
