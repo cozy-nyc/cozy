@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404, render
 
 from .models import *
+from .forms import *
 
 def home(request):
     context = {
@@ -56,6 +57,6 @@ def post_listing(request):
         if form.is_valid():
             listing = Listing.objects.get(id=id)
             return redirect(home)
-        else:
-            form = PostListingForm()
-            return render(request, 'sell.html', {})
+    else:
+        form = PostListingForm()
+    return render(request, 'sell.html', {'form': form})
