@@ -49,3 +49,13 @@ def listing(request, id, item_slug, item_id):
     }
     template = 'item/listing.html'
     return render(request, template, context)
+
+def post_listing(request):
+    if request.method == 'POST':
+        form = PostListingForm(request.POST)
+        if form.is_valid():
+            listing = Listing.objects.get(id=id)
+            return redirect(home)
+        else:
+            form = PostListingForm()
+            return render(request, 'sell.html', {})
