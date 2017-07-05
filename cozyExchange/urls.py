@@ -30,8 +30,7 @@ urlpatterns = [
     url(r'^', include('shop.urls', namespace='shop')),
     url(r'^about/$', shop_views.about, name='about'),
     url(r'^contact/$', contact_views.contact, name='contact'),
-    url(r'^messages/', include('postman.urls', namespace='postman', app_name = 'postman')),
-
+]
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

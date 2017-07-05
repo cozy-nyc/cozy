@@ -29,12 +29,23 @@ def item_list(request, category_slug=None):
     }
     return render(request, 'item/list.html', context)
 
-#Change to listings
 def item_detail(request, id, slug):
-    item = get_object_or_404(Item, id=id, slug=slug, available=True)
+    item = get_object_or_404(Item, id=id, available=True)
     # cart_item_form = CartAddItemForm()
     context = {
         'item': item,
+        'listing': Listing.objects.filter(item=item, available=True)
         # 'cart_item_form': cart_item_form
     }
-    return render(request, 'item/item.html', context)
+    template = 'item/item.html'
+    return render(request, template, context)
+
+def listing(request, id, item_slug, item_id):
+    listing = get_object_or_404(Listing, id=id, available=True)
+    item = listing.item
+    context = {
+        'listing': listing,
+        'item': item
+    }
+    template = 'item/listing.html'
+    return render(request, template, context)
