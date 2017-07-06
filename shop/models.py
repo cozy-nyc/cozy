@@ -64,7 +64,7 @@ class Item(models.Model):
             name: A string of the name of the item
     """
     name = models.CharField(max_length=200, db_index=True)
-    slug = models.SlugField(max_length=200, db_index=True, unique = True)
+    slug = models.SlugField(max_length=200, db_index=True)
     # brand = models.ForeignKey(Brand)
     description = models.TextField(blank=True)
     material = models.TextField(blank=True)
