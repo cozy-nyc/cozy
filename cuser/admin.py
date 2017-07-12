@@ -6,13 +6,13 @@ from cuser.models import User
 from cuser.forms import SignUpForm
 
 class UserAdmin(UserAdmin):
-    """
-    The forms to add and change user instances
+    """The forms to add and change user instances
 
     The fields to be used in displaying the User model.
     These override the definitions on the base UserAdmin
     that reference the removed 'username' field
     """
+
     fieldsets = (
         (None, {'fields': ('email', 'username', 'password')}),
         (_('Personal info'), {'fields': ('first_name', 'last_name')}),

@@ -1,8 +1,7 @@
 from django import forms
 
 class contactForm(forms.Form):
-    """
-    The form used to submit an email to the contacts
+    """The form used to submit an email to the contacts
 
     name: string that contains the name of the user
     email: the string that contains the email for

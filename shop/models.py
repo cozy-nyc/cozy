@@ -4,14 +4,13 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 class Category(models.Model):
-    """
-        This is a model for a predetermined list of clothing categories.
+    """This is a model for a predetermined list of clothing categories.
 
-        List:
+    List:
         Jackets, shirts, sweaters, sweatshirts, pants, t-shirts, hats, accessories, skate, bike, and other
 
-        Attributes:
-            name: A string of the name of a category
+    Attributes:
+        name: A string of the name of a category
     """
     name = models.CharField(max_length=50, db_index=True)
     slug = models.SlugField(max_length=50, db_index=True, unique=True)

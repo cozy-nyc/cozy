@@ -6,6 +6,8 @@ class PostListingForm(ModelForm):
     item_name = forms.CharField(max_length=200)
     item_category = forms.CharField(max_length=16)
     item_subCategory = forms.CharField(max_length=16)
+    # item_brand
+
 
     class Meta:
         model = Listing

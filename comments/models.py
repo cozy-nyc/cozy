@@ -7,8 +7,8 @@ from django.core.urlresolvers import reverse
 from django.db import models
 
 class CommentManager(models.Manager):
-    """
-    Comment manager is a manager for all comment objects.
+    """Comment manager is a manager for all comment objects.
+
     """
     def all(self):
         """Returns all comments
