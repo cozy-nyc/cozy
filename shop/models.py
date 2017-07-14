@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.core.validators import MaxValueValidator, MinValueValidator
 
@@ -125,7 +126,7 @@ class Listing(models.Model):
         Attributes:
             name: A string of the name of the item that the listing is tied to
     """
-    # seller = models.ForeignKey('settings.AUTH_USER_MODEL')
+    seller = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     item = models.ForeignKey(Item, related_name='Lisiting')
     conditionRating = models.FloatField(
         default=5.0,
