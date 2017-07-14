@@ -7,8 +7,7 @@ from .forms import contactForm
 
 # Create your views here.
 def contact(request):
-    """
-    This is the views used to create the form needed to contact cozy admins via emailFrom
+    """This is the views used to create the form needed to contact cozy admins via emailFrom
 
     Args:
         request: html request needed
@@ -18,7 +17,7 @@ def contact(request):
 
     Returns:
         The confirmation page to show the email went through
-        The contents of the email 
+        The contents of the email
 
 
     """

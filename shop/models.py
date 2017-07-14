@@ -4,14 +4,13 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 class Category(models.Model):
-    """
-        This is a model for a predetermined list of clothing categories.
+    """This is a model for a predetermined list of clothing categories.
 
-        List:
+    List:
         Jackets, shirts, sweaters, sweatshirts, pants, t-shirts, hats, accessories, skate, bike, and other
 
-        Attributes:
-            name: A string of the name of a category
+    Attributes:
+        name: A string of the name of a category
     """
     name = models.CharField(max_length=50, db_index=True)
     slug = models.SlugField(max_length=50, db_index=True, unique=True)
@@ -112,7 +111,7 @@ class Item(models.Model):
 
     class Meta:
         ordering = ('-lastActive',)
-        index_together = (('id', 'slug'),)
+        index_together = (('id','slug'),)
         verbose_name_plural = 'Items'
 
     def get_absolute_url(self):
@@ -126,7 +125,7 @@ class Listing(models.Model):
         Attributes:
             name: A string of the name of the item that the listing is tied to
     """
-    # seller = models.ForeignKey('profiles.Profile')
+    # seller = models.ForeignKey('settings.AUTH_USER_MODEL')
     item = models.ForeignKey(Item, related_name='Lisiting')
     conditionRating = models.FloatField(
         default=5.0,
@@ -149,9 +148,6 @@ class Listing(models.Model):
     def __str__(self):
         return self.item.name
 
-    def __str__(self):
-        return self.name
-
     class Meta:
         ordering = ('-created',)
         index_together = (('id'),)
@@ -159,7 +155,7 @@ class Listing(models.Model):
 
     def get_absolute_url(self):
         # plan out views
-        return reverse()
+        return reverse('shop:listing', args=[self.item.id, self.item.slug, self.id])
 
     def updateItem(self):
         # should update lastActive everytime a listing is created for that item

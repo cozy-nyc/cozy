@@ -52,5 +52,10 @@ class Profile(models.Model):
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def updateUserProfile(sender, instance, created, **kwargs):
+    """This function update user profile
+
+    Note:
+        Not done!
+    """
     if created:
         Profile.objects.create(user=instance)

@@ -25,6 +25,12 @@ from cuser.tokens import account_activation_token
 #     return(request)
 
 def signup(request):
+    """View for signup page
+
+    Returns:
+        Redirects to 'account_activation_sent'if form is successful otherwise
+        render back to 'signup'
+    """
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
@@ -46,11 +52,22 @@ def signup(request):
     return render(request, 'signup.html', {'form': form})
 
 def account_activation_sent(request):
+    """View for activation sent page
+
+    When user creates a user or tries to login with 'user.is_active' they are
+    redirected to this page.
+    """
     context = {}
     template = 'account_activation_sent.html'
     return render(request, template, context)
 
 def activate(request, uidb64, token):
+    """View for activation page
+
+    Return:
+        redirect to home page if user account_activation_token is vaild
+        renders 'account_activation_invalid' if user or token is invaild
+    """
     try:
         uid = force_text(urlsafe_base64_decode(uidb64))
         user = User.objects.get(pk=uid)

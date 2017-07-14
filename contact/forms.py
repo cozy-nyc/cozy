@@ -2,9 +2,10 @@ from django import forms
 
 class contactForm(forms.Form):
     """The form used to submit an email to the contacts
-        name: string that contains the name of the user
-        email: the string that contains the email for
-        message: the string that contains the message that is to be delievered to the cozy admins 
+
+    name: string that contains the name of the user
+    email: the string that contains the email for
+    message: the string that contains the message that is to be delievered to the cozy admins
     """
     name = forms.CharField(
         required=True,

@@ -13,7 +13,11 @@ from .managers import UserManager
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    # username = models.CharField(_('username'),unique=True)
+    """ This is a model for users.
+
+    Note:
+        left 'phone_number' commented out for a later date
+    """
     email = models.EmailField(_('email address'), unique=True)
     username = models.CharField(_('username'), max_length=30, unique = True)
     # phone_number
@@ -28,6 +32,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
+    #: list of the field names that will be prompted for when creating a user via the createsuperuser management command
     REQUIRED_FIELDS = ['username']
 
     class Meta:
@@ -35,15 +40,13 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name_plural = _('users')
 
     def get_short_name(self):
-        '''
-        Returns the first_name plus the last_name, with a space in between.
-        '''
+        """Returns the first_name plus the last_name, with a space in between.
+        """
         return self.username
 
     def email_user(self, subject, message, from_email=None, **kwargs):
-        '''
-        Sends an email to this User.
-        '''
+        """Sends an email to this User.
+        """
         send_mail(subject, message, from_email, [self.email], **kwargs)
 
 # @receiver(post_save, sender=User)

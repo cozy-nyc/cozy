@@ -13,7 +13,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'hello@cozy.nyc'
 EMAIL_HOST_PASSWORD = 'pasword'
@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'profiles',
     'contact',
     'shop',
-    'postman',
     'cuser'
 ]
 

@@ -1,11 +1,13 @@
 from django.contrib.auth.models import BaseUserManager
 
+# TO DO/ NEEDS FIXING
 class UserManager(BaseUserManager):
+    """Custom User Manager for 'cuser'
+    """
 
     def _create_user(self, email, password,
                      is_staff, is_superuser, **extra_fields):
-        """
-        Creates and saves a User with the given email and password.
+        """Creates and saves a User with the given email and password.
         """
         if not email:
             raise ValueError('The given email must be set')
@@ -18,6 +20,13 @@ class UserManager(BaseUserManager):
         return user
 
     def create_user(self, email, password=None, **extra_fields):
+        """Base case function to create a user
+
+        User if redirected to set a password if no password
+
+        Returns:
+            _create_user function
+        """
         return self._create_user(email, password, False, False,
                                  **extra_fields)
 
