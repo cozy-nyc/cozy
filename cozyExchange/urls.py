@@ -25,7 +25,7 @@ from contact import views as contact_views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^', include('cuser.urls', namespace="users")),
+    url(r'^', include('cuser.urls', namespace='users')),
     url(r'^$', shop_views.home, name='home'),
     url(r'^', include('shop.urls', namespace='shop')),
     url(r'^about/$', shop_views.about, name='about'),
