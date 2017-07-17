@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.core.validators import MaxValueValidator, MinValueValidator
+import datetime
 
 
 class Category(models.Model):
@@ -12,6 +13,7 @@ class Category(models.Model):
 
     Attributes:
         name: A string of the name of a category
+        slug: A slug to make our links more presentable on the web app
     """
     name = models.CharField(max_length=50, db_index=True)
     slug = models.SlugField(max_length=50, db_index=True, unique=True)
@@ -34,6 +36,7 @@ class SubCatergory(models.Model):
 
         Attributes:
             name: A string of the name of a sub-category
+            parent: foreign key to the Category. the class SubCategory is a child to category.
     """
     name = models.CharField(max_length=16)
     parent = models.ForeignKey(Category)
@@ -62,6 +65,19 @@ class Item(models.Model):
 
         Attributes:
             name: A string of the name of the item
+            slug: A slug to make our links more readable
+            description: A string which should describe the item for the users
+            materla: A string which should identify the materials used to make the item
+            category: A foregin key to category to make items more organized
+            subCatergory: A foregin key to subCatergory to make our items even more organized
+            avgSoldPrice: A number which will go through all listings to achieve the avgSoldPrice
+            lowestCurrListing: A number which will represent the lowest current avaible listing. A query will be used to find this
+            highestCurrListing: A number which will represent the highest current available listing. A query will be used to find thsi
+            lowestSoldListing: A number which will represent the lowest price a listing has been sold for this item.
+            highestSoldListing: A number which will represent the highest price a listing has been sold for that item.
+            lastActive: A date and time which represent when the last time the item has been edited
+            available: A boolean which represents whether there are listings avialble or not
+            stock: a integer that represents the amount of listings that are availble for the user to buy
     """
     name = models.CharField(max_length=200, db_index=True)
     slug = models.SlugField(max_length=200, db_index=True)
@@ -125,6 +141,15 @@ class Listing(models.Model):
 
         Attributes:
             name: A string of the name of the item that the listing is tied to
+            seller: A foriegn key to a user object that is selling the listing
+            conditionRating: A float between 1 and 10 that will represent the condition of the listing
+            description: A string that will further describe the item to perspective buyers
+            location: The locaton of the seller
+            price:A decimal field which will represent how much the user wishes to sell the item for
+            size: Characters which will represents the size of the product I.E: XL, 13, M
+            available: A boolean which represents whether the item is on sale or not
+            created = The date and time field that the listing was created
+            updated = the date and time field the listing was last updated
     """
     seller = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     item = models.ForeignKey(Item, related_name='Lisiting')
@@ -158,7 +183,18 @@ class Listing(models.Model):
         # plan out views
         return reverse('shop:listing', args=[self.item.id, self.item.slug, self.id])
 
-    def updateItem(self):
+    def updateItemListingCreated(self):
         # should update lastActive everytime a listing is created for that item
         self.item.lastActive = created
         self.item.stock += 1
+
+    def listingSold(self):
+        self.available = False
+        self.item.stock -=  1
+        updated = datetime.date.today()
+
+class Transactions(models.Model):
+    seller = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='Seller')
+    buyer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='Buyer')
+#    amountExchanged = models.DecimalField()
+    listing = models.ForeignKey(Listing)
