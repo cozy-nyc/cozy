@@ -135,6 +135,7 @@ class Item(models.Model):
         return reverse('shop:item_detail', args=[self.id, self.slug])
 
 
+
 class Listing(models.Model):
     """
         This is a model for listings on the exchange.
@@ -193,8 +194,47 @@ class Listing(models.Model):
         self.item.stock -=  1
         updated = datetime.date.today()
 
+
+
 class Transactions(models.Model):
+    """
+        This is a model for listings on the exchange.
+
+        Attributes:
+            seller: A foriegn key to a user object that sold the listings
+            buyer: A foreign key to a user object that is buying the listings
+            amountExchanged: the amount of money exchanged between seller and
+                buyer
+            listing = A foreign key to the listing object to mark it as sold
+            deliveryAddress = a text field which contains the address of the
+                seller
+            receiveAddress = a text field which contains the address of the
+                buyer
+            ratingSeller = a decimal field which contains a rating for the
+                seller 1-5
+            ratingBuyer = a decimal field which contains a rating for the buyer
+                1-5
+            isValid = a boolean field which stores whether the transaction
+                will go through or cancel
+    """
     seller = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='Seller')
     buyer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='Buyer')
-#    amountExchanged = models.DecimalField()
-    listing = models.ForeignKey(Listing)
+    amountExchanged = models.DecimalField(
+                decimal_places=2,
+                max_digits=10
+    )
+    listing = models.ForeignKey(Listing, related_name = "Listing")
+    deliveryAddress = models.TextField()
+    receiveAddress = models.TextField()
+    timeSold = models.DateTimeField(auto_now = True)
+    ratingSeller =  models.DecimalField(
+            decimal_places = 1,
+            max_digits = 1
+
+    )
+    ratingBuyer = models.DecimalField(
+            decimal_places = 1,
+            max_digits = 1
+
+    )
+    isValid = models.BooleanField(default = True)
