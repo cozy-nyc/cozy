@@ -72,7 +72,7 @@ class Item(models.Model):
             subCatergory: A foregin key to subCatergory to make our items even more organized
             avgSoldPrice: A number which will go through all listings to achieve the avgSoldPrice
             lowestCurrListing: A number which will represent the lowest current avaible listing. A query will be used to find this
-            highestCurrListing: A number which will represent the highest current available listing. A query will be used to find thsi
+            highestCurrListing: A number which will represent the highest current available listing. A query will be used to find this
             lowestSoldListing: A number which will represent the lowest price a listing has been sold for this item.
             highestSoldListing: A number which will represent the highest price a listing has been sold for that item.
             lastActive: A date and time which represent when the last time the item has been edited

@@ -1,5 +1,6 @@
 from shop.models import Category, SubCatergory, Item, Listing
 from django.db.models.manager import Manager
+from django.db.models import Min, Avg, Max
 import datetime
 
 
@@ -39,3 +40,34 @@ class ListingManager(Manager):
     This is a manager for Listings where we can store commonly used querysets
     as well as functions that will be used in our django project
     """
+    def avgSoldPrice(self,itemRef):
+        return self.filter(
+            item = itemRef,
+            available = False
+            ).aggregate(Avg('price'))
+
+    def lowestSoldPrice(self, itemRef):
+        return self.filter(
+            item = itemRef,
+            available = False
+            ).aggregate(Min('price'))
+
+    def highestSoldPrice(self, itemRef):
+        return self.filter(
+            item = itemRef,
+            available = False
+            ).aggregate(Max('price'))
+
+    def lowestCurrentPrice(self):
+        return self.filter(
+            item = itemRef,
+            available = True
+            ).aggregate(Min('price'))
+
+    def highestCurrentPrice(self):
+        return self.filter(
+            item = itemRef,
+            available = True
+            ).aggregate(Max('price'))
+
+class TransactionManager(Manager):
