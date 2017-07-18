@@ -185,14 +185,41 @@ class Listing(models.Model):
         return reverse('shop:listing', args=[self.item.id, self.item.slug, self.id])
 
     def updateItemListingCreated(self):
-        # should update lastActive everytime a listing is created for that item
+        """
+            This function will update the item model as the listing model is
+            created
+
+            Args:
+                self: current instance of that object
+        """
         self.item.lastActive = created
         self.item.stock += 1
 
     def listingSold(self):
+        """
+            This function will update the item object as well as the current
+            instance of the listing as it has been sold. This will be called
+            upon within the transaction functions
+
+            Args:
+                self: current instance of that object
+        """
         self.available = False
         self.item.stock -=  1
         updated = datetime.date.today()
+
+    def listingReposted(self):
+        """
+            This fucntion will update an item object as well
+            as the listing due to being reposted due to a canceled transaction.
+
+            Args:
+                self: current instance of that object
+        """
+        self.available = True
+        self.item.stock += 1
+        updated = datetime.date.today()
+
 
 
 
@@ -217,8 +244,16 @@ class Transactions(models.Model):
             isValid = a boolean field which stores whether the transaction
                 will go through or cancel
     """
-    seller = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='Seller')
-    buyer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='Buyer')
+    seller = models.ForeignKey(
+                settings.AUTH_USER_MODEL,
+                on_delete=models.CASCADE,
+                related_name='Seller'
+    )
+    buyer = models.ForeignKey(
+                settings.AUTH_USER_MODEL,
+                on_delete=models.CASCADE,
+                related_name='Buyer'
+    )
     amountExchanged = models.DecimalField(
                 decimal_places=2,
                 max_digits=10
@@ -238,3 +273,25 @@ class Transactions(models.Model):
 
     )
     isValid = models.BooleanField(default = True)
+
+    def transactionMade(self):
+        """
+            This function will verify that a transaction has been made amd call
+            upon the correct listing function to communicate this
+
+            Args:
+                self: current instance of that object
+        """
+        self.isValid = True
+        self.listing.listingsold()
+
+    def transactionCanceled(self):
+        """
+            This function will verify that a transaction has been canceled and
+            will call upon the correct listing function to communicate this
+
+            Args:
+                self: current instance of that object
+        """
+        self.isValid = False
+        self.listing.listingReposted()
