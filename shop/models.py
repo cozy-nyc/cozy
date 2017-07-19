@@ -118,7 +118,7 @@ class Item(models.Model):
             max_digits=10
             )
     lastActive = models.DateTimeField()
-    available = models.BooleanField(default = True)
+    viisible = models.BooleanField(default = True)
     stock = models.PositiveIntegerField(
             default = 0
     )
