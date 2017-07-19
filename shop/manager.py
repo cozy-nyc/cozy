@@ -94,7 +94,7 @@ class ListingManager(Manager):
             available = False
             ).aggregate(Max('price'))
 
-    def lowestCurrentPrice(self):
+    def lowestCurrentPrice(self, itemRef):
         """
             This function will run a query that will return the lowest price
             that is currently listed
@@ -112,7 +112,7 @@ class ListingManager(Manager):
             available = True
             ).aggregate(Min('price'))
 
-    def highestCurrentPrice(self):
+    def highestCurrentPrice(self, itemRef):
         """
             This function will run a query that will return the highest price
             that is currently listed
