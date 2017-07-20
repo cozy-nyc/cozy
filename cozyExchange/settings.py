@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'profiles',
     'contact',
     'shop',
-    'cuser'
+    'cuser',
+    'rest_framework',
 ]
 
 POSTMAN_AUTO_MODERATE_AS = True
