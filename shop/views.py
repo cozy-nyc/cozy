@@ -1,5 +1,10 @@
 from django.shortcuts import get_object_or_404, render
-
+from rest_framework.response import Response
+from rest_framework.permissions import IsAdminUser
+from rest_framework.views import APIView
+from rest_framework.decorators import permission_classes
+from rest_framework import status, generics
+from .serializers import *
 from .models import *
 from .forms import *
 
@@ -83,3 +88,19 @@ def post_listing(request):
     else:
         form = PostListingForm()
     return render(request, 'sell.html', {'form': form})
+
+'''
+-------------------------------------------------------------------------------
+APIS
+'''
+
+
+class ItemList(APIView):
+    def get(self,request,format=None):
+        item = Item.objects.all()
+        serializer = ItemSerializers(item, many=True)
+        return Response(serializer.data)
+
+class ItemDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Item.objects.all()
+    serializer_class = ItemSerializers
