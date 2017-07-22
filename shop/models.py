@@ -30,7 +30,7 @@ class Category(models.Model):
         return reverse('shop:item_list_by_category', args=[self.slug])
 
 
-class SubCatergory(models.Model):
+class SubCategory(models.Model):
     """
         This is a model for a list of clothing sub-categories that are either predetermind or user input.
 
@@ -86,7 +86,7 @@ class Item(models.Model):
     material = models.TextField(blank=True)
     # related_name may not be needed. Research!!!
     category = models.ForeignKey(Category, related_name='Item')
-    subCatergory = models.ForeignKey(SubCatergory)
+    subCategory = models.ForeignKey(SubCategory)
     avgSoldPrice = models.DecimalField(
             default=1.00,
             validators=[MinValueValidator(1.0)],
@@ -118,7 +118,7 @@ class Item(models.Model):
             max_digits=10
             )
     lastActive = models.DateTimeField()
-    viisible = models.BooleanField(default = True)
+    visible = models.BooleanField(default = True)
     stock = models.PositiveIntegerField(
             default = 0
     )
@@ -223,7 +223,7 @@ class Listing(models.Model):
 
 
 
-class Transactions(models.Model):
+class Transaction(models.Model):
     """
         This is a model for listings on the exchange.
 
