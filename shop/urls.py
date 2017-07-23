@@ -20,5 +20,4 @@ urlpatterns = [
  	url(r'^api/transaction/(?P<pk>[0-9]+)/$', views.TransactionDetail.as_view()),
     url(r'^api/items/$', views.ItemList.as_view()),
  	url(r'^api/items/(?P<pk>[0-9]+)/$', views.ItemDetail.as_view()),
-
 ]

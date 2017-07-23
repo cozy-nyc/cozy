@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.core.validators import MaxValueValidator, MinValueValidator
+from .manager import CategoryManager, SubCatergoryManager, ItemManager, ListingManager, TransactionManager
 import datetime
 
 
@@ -17,6 +18,7 @@ class Category(models.Model):
     """
     name = models.CharField(max_length=50, db_index=True)
     slug = models.SlugField(max_length=50, db_index=True, unique=True)
+    objects = CategoryManager()
 
     def __str__(self):
         return self.name
@@ -32,14 +34,17 @@ class Category(models.Model):
 
 class SubCategory(models.Model):
     """
-        This is a model for a list of clothing sub-categories that are either predetermind or user input.
+        This is a model for a list of clothing sub-categories that are either
+        predetermind or user input.
 
         Attributes:
             name: A string of the name of a sub-category
-            parent: foreign key to the Category. the class SubCategory is a child to category.
+            parent: foreign key to the Category. the class SubCategory is a
+            child to category.
     """
     name = models.CharField(max_length=16)
     parent = models.ForeignKey(Category)
+    objects = SubCatergoryManager()
 
     def __str__(self):
         return self.name
@@ -122,6 +127,7 @@ class Item(models.Model):
     stock = models.PositiveIntegerField(
             default = 0
     )
+    objects = ItemManager()
 
     def __str__(self):
         return self.name
@@ -171,6 +177,7 @@ class Listing(models.Model):
     available = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    objects = ListingManager()
 
     def __str__(self):
         return self.item.name
@@ -273,6 +280,7 @@ class Transaction(models.Model):
 
     )
     isValid = models.BooleanField(default = True)
+    objects = TransactionManager()
 
     def transactionMade(self):
         """

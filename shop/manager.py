@@ -1,6 +1,6 @@
-from shop.models import Category, SubCatergory, Item, Listing
 from django.db.models.manager import Manager
 from django.db.models import Min, Avg, Max
+#from .models import Category, SubCategory, Item, Listing, Transaction
 import datetime
 
 
@@ -18,7 +18,8 @@ class SubCatergoryManager(Manager):
     querysets that will be used in our django project
     """
     def siblings(self, catName):
-        return self.get_queryset().filter(parent = catName)
+        return self.get_queryset().filter(parent__name=catName)
+
 
 
 class ItemManager(Manager):
@@ -97,7 +98,7 @@ class ItemManager(Manager):
 
 
 
-     def sharedCategory(self, catName):
+    def sharedCategory(self, catName):
         return self.get_queryset().filter(category = catName)
 
     def sharedSubCategory(self, subCatName):
@@ -141,7 +142,7 @@ class ListingManager(Manager):
         price = price,
         size = size,
         available = True,
-        created = datetime.date.today()
+        created = datetime.date.today(),
         updated = datetime.date.today()
         )
 
