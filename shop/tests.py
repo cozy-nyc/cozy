@@ -25,3 +25,6 @@ class SubCategoryCase(TestCase):
     def test_sibling(self):
         subcats = SubCategory.objects.siblings('Shirts')
         self.assertEqual(len(subcats),2)
+
+class ItemTestCase(TestCase):
+    def setUp(self):

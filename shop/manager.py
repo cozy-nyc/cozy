@@ -55,6 +55,10 @@ class ItemManager(Manager):
         lastActive = datetime.date.today()
         )
 
+        item.save(using = self._db)
+
+        return item
+
     def findItem(self, name = None , category = None  , subCategory = None):
         """
             This function is a query that will be used for search functions
