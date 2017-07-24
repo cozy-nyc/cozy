@@ -79,22 +79,22 @@ class ItemManager(Manager):
         """
         if name != None and category != None and subCategory != None:
             return self.get_queryset().filter(name__contains = name,
-            category = category,
-            subCategory = subCategory
+            category__name = category,
+            subCategory__name = subCategory
             )
         elif name != None and category != None:
             return self.get_queryset().filter(name__contains = name,
-            category = categroy
+            category__name = categroy
             )
         elif category != None and subCategory != None:
-            return self.get_queryset().filter(category = category,
-            subCategory = subCategory
+            return self.get_queryset().filter(category__name = category,
+            subCategory__name = subCategory
             )
         elif name != None:
             return self.get_queryset().filter(name__contains = name)
 
         elif category != None:
-            return self.sharedCategory(categor.namey)
+            return self.sharedCategory(category)
 
         else:
             return None
@@ -103,10 +103,10 @@ class ItemManager(Manager):
 
 
     def sharedCategory(self, catName):
-        return self.get_queryset().filter(category = catName)
+        return self.get_queryset().filter(category__name = catName)
 
     def sharedSubCategory(self, subCatName):
-        return self.get_queryset().filter(subCategory = subCatName)
+        return self.get_queryset().filter(subCategory__name = subCatName)
 
 
 
@@ -222,7 +222,7 @@ class ListingManager(Manager):
                         a particular item
         """
         return self.filter(
-            item = itemRef,
+            item__name = itemRef,
             available = True
             ).aggregate(Min('price'))
 
