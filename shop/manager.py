@@ -150,8 +150,24 @@ class ListingManager(Manager):
         updated = datetime.date.today()
         )
 
-        listing.save(using=self._db)
+        item = listing.item
+        itemLowest = listing.item.lowestCurrListing
+        itemHighest = listing.item.highestCurrListing
 
+        if itemLowest == 1.00 and itemHighest == 1.00:
+            listing.item.lowestCurrListing = listing.price
+            listing.item.highestCurrListing = listing.price
+            item.save()
+
+        elif listing.price < itemLowest:
+            listing.item.lowestCurrListing = listing.price
+            item.save()
+
+        elif listing.price > itemHighest:
+            listing.item.highestCurrListing = listing.price
+            item.save()
+
+        listing.save(using=self._db)
         return listing
 
     def avgSoldPrice(self,itemRef):
@@ -168,7 +184,7 @@ class ListingManager(Manager):
                         particular item
         """
         return self.filter(
-            item = itemRef,
+            item__name = itemRef,
             available = False
             ).aggregate(Avg('price'))
 
@@ -186,7 +202,7 @@ class ListingManager(Manager):
                         particular item
         """
         return self.filter(
-            item = itemRef,
+            item__name = itemRef,
             available = False
             ).aggregate(Min('price'))
 
@@ -204,7 +220,7 @@ class ListingManager(Manager):
                         particular item
         """
         return self.filter(
-            item = itemRef,
+            item__name = itemRef,
             available = False
             ).aggregate(Max('price'))
 
@@ -240,7 +256,7 @@ class ListingManager(Manager):
                         a particular item
         """
         return self.filter(
-            item = itemRef,
+            item__name = itemRef,
             available = True
             ).aggregate(Max('price'))
 

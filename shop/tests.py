@@ -137,5 +137,20 @@ class ListingTestCase(TestCase):
         )
 
     def test_lowest_current_price(self):
-        lowestPrice = Listing.objects.lowestCurrentPrice(itemRef = 'Supreme Yankee Box Logo T-Shirt White')
-        self.assertEqual(lowestPrice,70.00)
+        lowestPrice = Listing.objects.lowestCurrentPrice(
+        itemRef = 'Supreme Yankee Box Logo T-Shirt White'
+        )
+        self.assertEqual(lowestPrice['price__min'],70.00)
+
+        item = Item.objects.get(name = 'Supreme Yankee Box Logo T-Shirt White')
+        self.assertEqual(item.lowestCurrListing, 70.00)
+
+
+    def test_highest_current_price(self):
+        highestPrice = Listing.objects.highestCurrentPrice(
+        itemRef = 'Supreme Yankee Box Logo T-Shirt White'
+        )
+        self.assertEqual(highestPrice['price__max'],200.00)
+
+        item = Item.objects.get(name = 'Supreme Yankee Box Logo T-Shirt White')
+        self.assertEqual(item.highestCurrListing, 200.00)
