@@ -265,3 +265,38 @@ class TransactionManager(Manager):
     This is a manager for Transactions where we can store commonly used querysets
     as well as functions that will be used in our django project
     """
+
+    def createTransaction(self, selller, buyer, amountExchanged, listing, deliveryAddress, receiveAddress, ratingSeller, ratingBuyer):
+            transaction = self.model(
+            seller = seller,
+            buyer = buyer,
+            amountExchanged = amountExchanged,
+            listing = listing,
+            deliveryAddress = deliveryAddress,
+            receiveAddress = receiveAddress,
+            timeSold = datetime.date.today(),
+            ratingSeller = ratingSeller,
+            ratingBuyer = ratingBuyer
+            )
+
+            item = transaction.listing.item
+            itemAvg = item.avgSoldPrice
+            itemHighest = item.highestSoldPrice
+            itemLowest = item.lowestSoldPrice
+
+            if((itemAvg == 1.00) and (itemHighest == 1.00) and (itemLowest == 1.00)):
+                transaction.listing.item.avgSoldPrice = transaction.listing.price
+                transaction.listing.item.highestSoldPrice = transaction.listing.price
+                transaction.listing.item.lowestSoldPrice = transaction.listing.price
+
+            elif(itemHighest < transaction.listing.price):
+                transaction.listing.item.highestSoldPrice = transaction.listing.price
+                item.save()
+
+            elif(itemLowest > transaction.listing.price):
+                transaction.listing.item.lowestSoldPrice = transaction.listing.price
+                item.save()
+
+            transaction.save(using = self._db)
+            transaction.transactionMade()
+            return transaction

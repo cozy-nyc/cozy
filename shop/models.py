@@ -290,8 +290,12 @@ class Transaction(models.Model):
             Args:
                 self: current instance of that object
         """
+
         self.isValid = True
         self.listing.listingsold()
+        avg = self.listing.objects.avgSoldPrice()
+        item = self.listing.item
+        item.avgSoldPrice = item['price__avg']
 
     def transactionCanceled(self):
         """
@@ -303,3 +307,6 @@ class Transaction(models.Model):
         """
         self.isValid = False
         self.listing.listingReposted()
+        avg = self.listing.objects.avgSoldPrice()
+        item = self.listing.item
+        item.avgSoldPrice = item['price__avg']
