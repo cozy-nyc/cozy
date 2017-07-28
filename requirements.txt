@@ -1,6 +1,0 @@
-Django
-stripe
-psycopg2
-pillow
-django-crispy-forms
-djangorestframework

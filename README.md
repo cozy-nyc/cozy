@@ -1,5 +1,1 @@
-# PLEASE READ
-https://docs.djangoproject.com/en/dev/topics/auth/default/#user-objects
-Read up on docker usage with django
-
-STOP PUSHING TO THIS REPO
+https://gist.github.com/Yogendra0Sharma/5aa96ebfd0854623a5451c53672088d5
