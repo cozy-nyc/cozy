@@ -170,6 +170,19 @@ class ListingManager(Manager):
         listing.save(using=self._db)
         return listing
 
+    def updateSoldOrDelete(self, listing):
+        if listing.price == listing.item.lowestCurrListing:
+            listing.item.lowestCurrListing = self.lowestCurrentPrice(
+                    listing.item.name
+            )
+
+        elif listing.price == listing.item.highestCurrListing:
+            listing.item.highestCurrListing = self.highestCurrentPrice(
+                listing.item.name
+            )
+            print('yoo')
+
+
     def avgSoldPrice(self,itemRef):
         """
             This function will run a query that will return the average price

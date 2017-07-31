@@ -1,6 +1,7 @@
 from django.test import TestCase
 from .models import Category, SubCategory, Item, Listing, Transaction
-from cuser.models import User
+from django.contrib.auth.models import User
+
 
 # Create your tests here.
 
@@ -184,6 +185,22 @@ class ListingTestCase(TestCase):
 
         item = Item.objects.get(name = 'Supreme Yankee Box Logo T-Shirt White')
         self.assertEqual(item.lowestCurrListing, 70.00)
+
+        listing1 = Listing.objects.get(
+            seller = User.objects.get(username = 'john'),
+            item = Item.objects.get(name = "Supreme Yankee Box Logo T-Shirt White")
+            )
+        listing1.listingSold()
+        listing1.save()
+        Listing.objects.updateSoldOrDelete(listing1)
+
+        newLowestPrice = Listing.objects.lowestCurrentPrice(
+        itemRef = 'Supreme Yankee Box Logo T-Shirt White'
+        )
+
+        self.assertEqual(newLowestPrice['price__min'],200.00)
+
+
 
 
     def test_highest_current_price(self):
