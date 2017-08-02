@@ -87,7 +87,7 @@ class ItemTestCase(TestCase):
 
     def test_find_two(self):
         '''
-        tets if we can find items based off their category
+        tests if we can find items based off their category
         '''
         item = Item.objects.findItem(category = "Shirts")
         self.assertEqual(len(item),2)
