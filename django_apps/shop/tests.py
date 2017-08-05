@@ -75,7 +75,7 @@ class ItemTestCase(TestCase):
         material = "100%% Cotton",
         category = Category.objects.get(name = "Shirts"),
         subCategory = SubCategory.objects.get(name="Tank Tops")
-        )
+            )
 
 
     def test_find_one(self):
