@@ -43,14 +43,15 @@ class SubCategory(models.Model):
             child to category.
     """
     name = models.CharField(max_length=16)
-    parent = models.ForeignKey(Category)
+    parent = models.ForeignKey(Category, related_name = 'subCats')
     objects = SubCatergoryManager()
 
-    def __str__(self):
-        return self.name
-
     class Meta:
-        verbose_name_plural = 'Sub Categories'
+        ordering = ('name',)
+        verbose_name = 'subcategory'
+        verbose_name_plural = 'subcategories'
+
+
 
 # Needs to be moved to profile
 # class Brand(models.Model):

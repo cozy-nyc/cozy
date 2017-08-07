@@ -1,12 +1,7 @@
 from django.shortcuts import get_object_or_404, render
-from rest_framework.response import Response
-from rest_framework.permissions import IsAdminUser
-from rest_framework.views import APIView
-from rest_framework.decorators import permission_classes
-from rest_framework import status, generics
-from .serializers import *
 from .models import *
 from .forms import *
+
 
 def home(request):
     """This is the view for the home page
@@ -88,67 +83,3 @@ def post_listing(request):
     else:
         form = PostListingForm()
     return render(request, 'sell.html', {'form': form})
-
-'''
--------------------------------------------------------------------------------
-APIS
--------------------------------------------------------------------------------
-'''
-
-class CategoryList(APIView):
-    def get(self,request,format=None):
-        category = Category.objects.all()
-        serializer = CategorySerializer(category, many=True)
-        return Response(serializer.data)
-
-
-class CategoryDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Category.objects.all()
-    serializer_class = CategorySerializer
-
-
-
-class SubCategoryList(APIView):
-    def get(self,request,format=None):
-        subCategory = SubCategory.objects.all()
-        serializer = SubCategorySerializer(subCategory, many=True)
-        return Response(serializer.data)
-
-class SubCategoryDetial(generics.RetrieveUpdateDestroyAPIView):
-    queryset = SubCategory.objects.all()
-    serializer_class = SubCategorySerializer
-
-
-
-class ItemList(APIView):
-    def get(self,request,format=None):
-        item = Item.objects.all()
-        serializer = ItemSerializer(item, many=True)
-        return Response(serializer.data)
-
-class ItemDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Item.objects.all()
-    serializer_class = ItemSerializer
-
-
-
-class ListingList(APIView):
-    def get(self,request,format=None):
-        listing = Listing.objects.all()
-        serializer = ListingSerializer(listing, many=True)
-        return Response(serializer.data)
-
-class ListingDetial(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Listing.objects.all()
-    serializer_class = ListingSerializer
-
-
-class TransactionList(APIView):
-    def get(self,request,format=None):
-        transaction = Transaction.object.all()
-        serializer = TransactionSerializer(transaction,many =True)
-        return Response(serializer.data)
-
-class TransactionDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Transaction.objects.all()
-    serializer_class = TransactionSerializer
