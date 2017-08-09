@@ -111,7 +111,7 @@ class Item(models.Model):
             decimal_places=2,
             max_digits=10
             )
-    lowestSoldLising = models.DecimalField(
+    lowestSoldListing = models.DecimalField(
             default=1.00,
             validators=[MinValueValidator(1.0)],
             decimal_places=2,

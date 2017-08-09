@@ -3,15 +3,43 @@ import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import HelloWorld from './components/hello-world';
 import axios from 'axios'
-//import ItemList from './api/items',
-//import api from '../utilities/api'
-axios.get('/api/items/1')
+import api from '../utilities/api'
+
+
+
+/*import ItemList from './api/items',
+axios.get('/api')
   .then(function(response){
     console.log(response);
   })
   .catch(function(error) {
     console.log(error);
   });
+*/
+
+//
+// api.get('/api/items/')
+//   .then(function(response){
+//     console.log(response);
+//   })
+//   .catch(function(error) {
+//     console.log(error);
+//   });
+
+
+  api.post('/api-token-auth/',{
+    username: 'test',
+    password: 'yeet12345'
+    })
+    .then(function(response){
+      csrftoken = response.data
+      console.log(response);
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+
+
 
 ReactDOM.render(
   <AppContainer>
