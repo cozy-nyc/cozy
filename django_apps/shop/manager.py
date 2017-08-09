@@ -170,6 +170,18 @@ class ListingManager(Manager):
         listing.save(using=self._db)
         return listing
 
+    def updateSoldOrDelete(self, listing):
+        if listing.price == listing.item.lowestCurrListing:
+            listing.item.lowestCurrListing = self.lowestCurrentPrice(
+                    listing.item.name
+            )
+
+        elif listing.price == listing.item.highestCurrListing:
+            listing.item.highestCurrListing = self.highestCurrentPrice(
+                listing.item.name
+            )
+
+
     def avgSoldPrice(self,itemRef):
         """
             This function will run a query that will return the average price
@@ -281,20 +293,20 @@ class TransactionManager(Manager):
 
             item = transaction.listing.item
             itemAvg = item.avgSoldPrice
-            itemHighest = item.highestSoldPrice
-            itemLowest = item.lowestSoldPrice
+            itemHighest = item.highestSoldListing
+            itemLowest = item.lowestSoldListing
 
             if((itemAvg == 1.00) and (itemHighest == 1.00) and (itemLowest == 1.00)):
                 transaction.listing.item.avgSoldPrice = transaction.listing.price
-                transaction.listing.item.highestSoldPrice = transaction.listing.price
-                transaction.listing.item.lowestSoldPrice = transaction.listing.price
+                transaction.listing.item.highestSoldListing = transaction.listing.price
+                transaction.listing.item.lowestSoldListing = transaction.listing.price
 
             elif(itemHighest < transaction.listing.price):
-                transaction.listing.item.highestSoldPrice = transaction.listing.price
+                transaction.listing.item.highestSoldListing = transaction.listing.price
                 item.save()
 
             elif(itemLowest > transaction.listing.price):
-                transaction.listing.item.lowestSoldPrice = transaction.listing.price
+                transaction.listing.item.lowestSoldListing = transaction.listing.price
                 item.save()
 
             transaction.save(using = self._db)
