@@ -2,10 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import HelloWorld from './components/hello-world';
+import navbar from './components/navbar'
 
 ReactDOM.render(
   <AppContainer>
     <HelloWorld />
+    <navbar />
   </AppContainer>,
   document.getElementById('react-root')
 );
