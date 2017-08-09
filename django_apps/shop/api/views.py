@@ -95,13 +95,11 @@ class ItemDelete(DestroyAPIView):
     queryset = Item.objects.all()
     serializer_class =  ItemDetailSeralizer
     permission_classes = [IsAdminUser]
-    lookup_field = 'slug'
 
 
 class ItemDetail(RetrieveAPIView):
     queryset = Item.objects.all()
     serializer_class = ItemDetailSeralizer
-    lookup_field = 'slug'
     permission_classes = [AllowAny]
 
 class ItemList(ListAPIView):
@@ -134,7 +132,7 @@ class ListingCreate(CreateAPIView):
     permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
-        serializer.save(user = self.request.user)
+        serializer.save(seller = self.request.user)
 
 class ListingUpdate(RetrieveUpdateAPIView):
     queryset = Listing.objects.all()
@@ -142,26 +140,23 @@ class ListingUpdate(RetrieveUpdateAPIView):
     permission_classes = [IsOwnerOrReadOnly]
 
     def perform_update(self, serializer):
-        serializer.save(user = self.request.user)
+        serializer.save(seller = self.request.user)
 
 class ListingDelete(DestroyAPIView):
     queryset = Listing.objects.all()
     serializer_class = ListingDetailSeralizer
-    lookup_field = ['item__name', 'price']
     permission_classes = [IsOwnerOrReadOnly]
 
 
 class ListingDetial(RetrieveAPIView):
     queryset = Listing.objects.all()
     serializer_class = ListingDetailSeralizer
-    lookup_field = ['item__name', 'price']
     permission_classes = [AllowAny]
 
 
 class ListingList(ListAPIView):
     queryset = Listing.objects.all()
     serializer_class = ListingListSeralizer
-    lookup_field = ['item__name', 'price']
     permission_classes = [AllowAny]
 
     def get_queryset(self, *args, **kwargs):
