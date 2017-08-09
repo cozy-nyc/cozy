@@ -1,6 +1,7 @@
 from django.test import TestCase
 from .models import Category, SubCategory, Item, Listing, Transaction
-from cuser.models import User
+from django.contrib.auth.models import User
+
 
 # Create your tests here.
 
@@ -74,7 +75,7 @@ class ItemTestCase(TestCase):
         material = "100%% Cotton",
         category = Category.objects.get(name = "Shirts"),
         subCategory = SubCategory.objects.get(name="Tank Tops")
-        )
+            )
 
 
     def test_find_one(self):
@@ -86,7 +87,7 @@ class ItemTestCase(TestCase):
 
     def test_find_two(self):
         '''
-        tets if we can find items based off their category
+        tests if we can find items based off their category
         '''
         item = Item.objects.findItem(category = "Shirts")
         self.assertEqual(len(item),2)
@@ -184,6 +185,22 @@ class ListingTestCase(TestCase):
 
         item = Item.objects.get(name = 'Supreme Yankee Box Logo T-Shirt White')
         self.assertEqual(item.lowestCurrListing, 70.00)
+
+        listing1 = Listing.objects.get(
+            seller = User.objects.get(username = 'john'),
+            item = Item.objects.get(name = "Supreme Yankee Box Logo T-Shirt White")
+            )
+        listing1.listingSold()
+        listing1.save()
+        Listing.objects.updateSoldOrDelete(listing1)
+
+        newLowestPrice = Listing.objects.lowestCurrentPrice(
+        itemRef = 'Supreme Yankee Box Logo T-Shirt White'
+        )
+
+        self.assertEqual(newLowestPrice['price__min'],200.00)
+
+
 
 
     def test_highest_current_price(self):
@@ -289,4 +306,7 @@ class TransactionTestCase(TestCase):
         ratingBuyer = 5.0
         )
 
-    #def test_average_sale(self):
+    def test_average_sale(self):
+
+        transaction1 = Transaction.objects.get()
+w

@@ -1,10 +1,15 @@
-import cookies from 'react-cookie';
-
+//import cookies from 'react-cookie';
+import Cookies from 'universal-cookie';
 
 // This is the place where we can load elements from a cookie to be used in our app
 
 // Django CRSF Token is stored in a cookie
-const csrftoken = cookies.load('csrftoken');
+
+const cookies = new Cookies();
+
+const csrftoken = cookies.get('csrftoken');
+console.log(csrftoken);
+
 
 // JWT is going to be saved into cookie
 // cookies.save('jwt', response.data.token, { secure: true, httpOnly: true });
