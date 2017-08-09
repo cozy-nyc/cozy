@@ -43,14 +43,15 @@ class SubCategory(models.Model):
             child to category.
     """
     name = models.CharField(max_length=16)
-    parent = models.ForeignKey(Category)
+    parent = models.ForeignKey(Category, related_name = 'subCats')
     objects = SubCatergoryManager()
 
-    def __str__(self):
-        return self.name
-
     class Meta:
-        verbose_name_plural = 'Sub Categories'
+        ordering = ('name',)
+        verbose_name = 'subcategory'
+        verbose_name_plural = 'subcategories'
+
+
 
 # Needs to be moved to profile
 # class Brand(models.Model):
@@ -110,7 +111,7 @@ class Item(models.Model):
             decimal_places=2,
             max_digits=10
             )
-    lowestSoldLising = models.DecimalField(
+    lowestSoldListing = models.DecimalField(
             default=1.00,
             validators=[MinValueValidator(1.0)],
             decimal_places=2,
@@ -187,6 +188,15 @@ class Listing(models.Model):
         index_together = (('id'),)
         verbose_name_plural = 'Listings'
 
+    def delete(self):
+        '''
+            This function will simply just delete a listing and update everything involved within deleting a listing
+        '''
+        self.item.stock -= 1
+        self.available = False
+        self.updated = datetime.date.today()
+
+
     def get_absolute_url(self):
         # plan out views
         return reverse('shop:listing', args=[self.item.id, self.item.slug, self.id])
@@ -202,6 +212,7 @@ class Listing(models.Model):
         self.item.lastActive = created
         self.item.stock += 1
 
+
     def listingSold(self):
         """
             This function will update the item object as well as the current
@@ -213,7 +224,7 @@ class Listing(models.Model):
         """
         self.available = False
         self.item.stock -=  1
-        updated = datetime.date.today()
+        self.updated = datetime.date.today()
 
     def listingReposted(self):
         """
@@ -226,6 +237,11 @@ class Listing(models.Model):
         self.available = True
         self.item.stock += 1
         updated = datetime.date.today()
+        if self.price < self.item.lowestCurrListing:
+            self.item.lowestCurrListing = self.price
+
+        elif self.price > self.item.highestCurrListing:
+            self.item.highestCurrentPrice = self.price
 
 
 
@@ -295,7 +311,7 @@ class Transaction(models.Model):
         self.listing.listingsold()
         avg = self.listing.objects.avgSoldPrice()
         item = self.listing.item
-        item.avgSoldPrice = item['price__avg']
+        item.avgSoldPrice = avg
 
     def transactionCanceled(self):
         """
@@ -310,3 +326,12 @@ class Transaction(models.Model):
         avg = self.listing.objects.avgSoldPrice()
         item = self.listing.item
         item.avgSoldPrice = item['price__avg']
+
+        if self.listing.price < self.listing.item.lowestSoldListing :
+            self.listing.item.lowestSoldListing = self.listing.objects.lowestSoldPrice(
+                self.listing.item.name
+            )
+        elif self.listing.price > self.listing.item.highestSoldListing:
+            self.listing.item.highestSoldListing = self.listng.objects.highestSoldPrice(
+                self.listing.item.name
+            )
