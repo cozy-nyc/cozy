@@ -1,15 +1,15 @@
 import React from 'react';
 
-const navbar = () => {
-  return (
+const Navbar = () => (
+
     <div id="navbar">
-      <a class="navbar-brand" href="">exchange</a>
-      <input type="text" placeholder="Search..." class="form-control"></input>
+      <a className="navbar-brand" href="">exchange</a>
+      <input type="text" placeholder="Search..." className="form-control"></input>
       <span>
         <a href="">Sell</a> | <a href="">Account</a>
       </span>
     </div>
-  );
-};
 
-export default navbar;
+);
+
+export default Navbar;
