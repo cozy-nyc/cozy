@@ -306,7 +306,6 @@ class TransactionTestCase(TestCase):
         ratingBuyer = 5.0
         )
 
-    def test_average_sale(self):
+    #def test_average_sale(self):
 
-        transaction1 = Transaction.objects.get()
-w
+    #    transaction1 = Transaction.objects.get()
