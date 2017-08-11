@@ -1,9 +1,10 @@
 import React from 'react';
 
-const Listing= () => {
+const Listing= (props) => {
   return (
     <div>
-      <h1>Stuff</h1>
+      <h1>{props.price}</h1>
+      <h1>{props.size}</h1>
     </div>
   );
 };

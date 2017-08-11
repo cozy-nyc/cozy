@@ -1,7 +1,7 @@
 import React from 'react';
 
-const Navbar = () => (
 
+const Navbar = () => (
     <div id="navbar">
       <a className="navbar-brand" href="">exchange</a>
       <input type="text" placeholder="Search..." className="form-control"></input>
@@ -9,7 +9,6 @@ const Navbar = () => (
         <a href="">Sell</a> | <a href="">Account</a>
       </span>
     </div>
-
 );
 
 export default Navbar;
