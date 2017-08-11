@@ -1,14 +1,8 @@
 export default function Reducer(
    state={
-      item: {
-         id: null,
-         name: null,
-         category: null,
-         description: null,
-      },
       fetching: false,
       fetched: false,
-      item: [],
+      items: [],
       error: null,
    }, action
    ) {

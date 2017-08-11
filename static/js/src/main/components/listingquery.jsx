@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 
 import { fetchListings } from '../actions/listing-actions';
 
-import Navbar from './navbar';
-import Listing from './listing';
+import ListingBox from './listingbox';
 
 @connect((store) => {
    return {
@@ -23,12 +22,12 @@ export default class ListingQuery extends React.Component {
 
       const { item, listings } = this.props;
 
-      const mappedListings = listings.map(listing =><Listing price={ listing.price } size={ listing.size }/>)
+      const mappedListings = listings.map(listing => <li><ListingBox price={ listing.price } size={ listing.size }/></li>)
 
       return (
-         <table>
-            <td>{mappedListings}</td>
-         </table>
+         <ul>
+            {mappedListings}
+         </ul>
 
       );
    }
