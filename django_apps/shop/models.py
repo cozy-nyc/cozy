@@ -147,6 +147,10 @@ class Item(models.Model):
     def get_absolute_url(self):
         return reverse('shop:item_detail', args=[self.id, self.slug])
 
+    def __unicode__(self):
+        return ('%d: %s' (self.id, self.name))
+
+
 
 
 
@@ -190,6 +194,9 @@ class Listing(models.Model):
     def __str__(self):
         return self.item.name
 
+    @property
+    def item_name(self):
+        return self.item.name
 
 
     class Meta:
@@ -251,8 +258,6 @@ class Listing(models.Model):
 
         elif self.price > self.item.highestCurrListing:
             self.item.highestCurrentPrice = self.price
-
-
 
 
 class Transaction(models.Model):
