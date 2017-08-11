@@ -84,6 +84,7 @@ class ItemCreateUpdateSerializer(ModelSerializer):
 
 class ItemDetailSeralizer(ModelSerializer):
     class Meta:
+        listings = StringRelatedField(many = True)
         category = CategoryDetailSerializer(read_only = True)
         subCatergory = SubCategoryDetailSerializer(read_only = True)
         model = Item
@@ -100,7 +101,8 @@ class ItemDetailSeralizer(ModelSerializer):
             'highestSoldListing',
             'lastActive',
             'visible',
-            'stock'
+            'stock',
+            'listings'
         ]
 
 class ItemListlSeralizer(ModelSerializer):
@@ -167,10 +169,24 @@ class ListingListSeralizer(ModelSerializer):
         ]
 
 
-
 #------------------------------------------------------------------------------
 #Transaction
 #------------------------------------------------------------------------------
+
+class TransactionCreateUpdateSerializer(ModelSerializer):
+
+    class Meta:
+        model = Transaction
+        fields = [
+            'seller',
+            'buyer',
+            'amountExchanged',
+            'deliveryAddress',
+            'receiveAddress',
+            'listing'
+        ]
+
+
 
 class TransactionSerializer(ModelSerializer):
 

@@ -3,6 +3,7 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.core.validators import MaxValueValidator, MinValueValidator
 from .manager import CategoryManager, SubCatergoryManager, ItemManager, ListingManager, TransactionManager
+from django.db.models.signals import post_save
 import datetime
 
 
@@ -45,6 +46,11 @@ class SubCategory(models.Model):
     name = models.CharField(max_length=16)
     parent = models.ForeignKey(Category, related_name = 'subCats')
     objects = SubCatergoryManager()
+
+
+    def __str__(self):
+        return self.name
+
 
     class Meta:
         ordering = ('name',)
@@ -143,6 +149,7 @@ class Item(models.Model):
 
 
 
+
 class Listing(models.Model):
     """
         This is a model for listings on the exchange.
@@ -160,7 +167,7 @@ class Listing(models.Model):
             updated = the date and time field the listing was last updated
     """
     seller = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    item = models.ForeignKey(Item, related_name='Lisiting')
+    item = models.ForeignKey(Item, related_name='listings')
     conditionRating = models.FloatField(
         default=5.0,
         validators=[MaxValueValidator(10.0), MinValueValidator(1.0)]
@@ -182,6 +189,8 @@ class Listing(models.Model):
 
     def __str__(self):
         return self.item.name
+
+
 
     class Meta:
         ordering = ('-created',)
@@ -335,3 +344,25 @@ class Transaction(models.Model):
             self.listing.item.highestSoldListing = self.listng.objects.highestSoldPrice(
                 self.listing.item.name
             )
+
+#
+#--------------------------------------------------------------------------------
+#
+
+def update_item(sender, **kwargs):
+    instance = kwargs['instance']
+    created = kwargs['created']
+    raw = kwargs['raw']
+    if created and not raw:
+        if instance.item.lowestCurrListing == 1.00 and instance.item.highestCurrListing == 1.00:
+            instance.item.lowestCurrListing = instance.price
+            instance.item.highestCurrListing = instance.price
+        if instance.price > instance.item.highestCurrListing:
+            instance.item.highestCurrListing = listing.price
+        elif instance.price < instance.item.lowestCurrListing:
+            instance.item.lowestCurrListing = listing.price
+        instance.item.stock += 1
+        instance.item.lastActive = datetime.date.today()
+        instance.updated = datetime.date.today()
+
+    post_save.connect(update_item, sender=Listing)
