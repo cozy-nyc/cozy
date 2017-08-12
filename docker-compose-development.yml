@@ -12,27 +12,28 @@ services:
       - postgres_backup_dev:/backups
     env_file: .env
 
-  node:
+  frontend:
     build:
       context: .
       dockerfile: ./docker_compose/node/development/Dockerfile
     command: /start.sh
     volumes:
-      - .:/app
+      - .:/frontend
     ports:
       - "3000:3000"
+    links:
+      - backend
 
-  django:
+  backend:
     build:
       context: .
       dockerfile: ./docker_compose/django/development/Dockerfile
     command: /start.sh
     depends_on:
       - postgres
-      - node
     env_file: .env
     volumes:
-      - .:/app
+      - .:/backend
     ports:
       - "8000:8000"
     links:

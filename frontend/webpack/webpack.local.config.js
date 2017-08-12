@@ -8,7 +8,7 @@ config.entry = {
     'webpack-dev-server/client?http://0.0.0.0:3000',
     'webpack/hot/only-dev-server',
     'react-hot-loader/patch',
-    path.join(__dirname, '../static/js/src/main/index')
+    path.join(__dirname, '../src/index')
   ]
 };
 

@@ -1,4 +1,4 @@
-import api from '../../utilities/api';
+import api from '../utilities/api';
 
 export function fetchListings() {
    return function(dispatch) {
