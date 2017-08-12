@@ -35,8 +35,6 @@ urlpatterns = [
     url(r'^api-token-verify/', verify_jwt_token),
     url(r'^admin/', admin.site.urls),
     url(r'^', include('django_apps.shop.urls', namespace='shop')),
-    url(r'^about/$', shop_views.about, name='about'),
-    url(r'^contact/$', contact_views.contact, name='contact'),
 
     url(r'^register/$', views.register, name='register'),
 

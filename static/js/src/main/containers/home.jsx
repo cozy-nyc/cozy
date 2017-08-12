@@ -2,19 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
-import store from '../store';
 import Navbar from '../components/navbar';
-import ListingsQuery from '../components/listingquery';
+import ListingQuery from '../components/listingquery';
 
 
 
-const HomePage= () => {
-  return (
+const Home = () => {
+   return (
       <div>
          <Navbar />
-         <Listings />
+         <ListingQuery />
       </div>
-);
+   );
 };
 
-export default HomePage;
+export default Home;

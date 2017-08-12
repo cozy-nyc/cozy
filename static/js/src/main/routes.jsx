@@ -1,10 +1,11 @@
 import React from "react";
 import {IndexRoute, Route} from "react-router";
 
-import HomePage from "./containers/home";
+import Home from "./containers/home";
+import Listing from "./containers/listing";
 
 export default (
     <Route path="/">
-        <IndexRoute component={HomePage}/>
+        <IndexRoute component={Home}/>
      </Route>
  );
