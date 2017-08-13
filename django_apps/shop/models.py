@@ -229,6 +229,8 @@ class Listing(models.Model):
         else:
             item.highestSoldListing = highest
 
+        self.updated = datetime.date.today()
+
         item.save()
 
 
