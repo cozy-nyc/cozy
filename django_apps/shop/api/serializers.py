@@ -81,7 +81,8 @@ class ItemCreateUpdateSerializer(ModelSerializer):
             'description',
             'material',
             'category',
-            'subCatergory'
+            'subCategory',
+            'available'
         ]
 
 class ItemDetailSeralizer(ModelSerializer):

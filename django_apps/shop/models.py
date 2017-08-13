@@ -81,7 +81,7 @@ class Item(models.Model):
             description: A string which should describe the item for the users
             materla: A string which should identify the materials used to make the item
             category: A foregin key to category to make items more organized
-            subCatergory: A foregin key to subCatergory to make our items even more organized
+            subCategory: A foregin key to subCatergory to make our items even more organized
             avgSoldPrice: A number which will go through all listings to achieve the avgSoldPrice
             lowestCurrListing: A number which will represent the lowest current avaible listing. A query will be used to find this
             highestCurrListing: A number which will represent the highest current available listing. A query will be used to find this
@@ -91,7 +91,7 @@ class Item(models.Model):
             available: A boolean which represents whether there are listings avialble or not
             stock: a integer that represents the amount of listings that are availble for the user to buy
     """
-    name = models.CharField(max_length=200, db_index=True)
+    name = models.CharField(max_length=200, db_index=True, unique = True)
     slug = models.SlugField(max_length=200, db_index=True)
     # brand = models.ForeignKey(Brand)
     description = models.TextField(blank=True)
@@ -129,7 +129,7 @@ class Item(models.Model):
             decimal_places=2,
             max_digits=10
             )
-    lastActive = models.DateTimeField()
+    lastActive = models.DateTimeField(default = datetime.date.today())
     visible = models.BooleanField(default = True)
     stock = models.PositiveIntegerField(
             default = 0
@@ -196,17 +196,41 @@ class Listing(models.Model):
 
 
     def save(self, **kwargs):
+        """
+            This function is an override of the save function so that the item object
+            will be automiatcally updated everytime there is  achange within the listing
+
+            Args:
+                self: current instance of that object
+        """
         super(Listing, self).save(**kwargs)
         item = self.item
-        if item.lowestCurrListing == 1.00 and item.highestCurrListing == 1.00:
-            item.lowestCurrListing = self.price
-            item.highestCurrListing = self.price
-        elif self.price > item.highestCurrListing:
-            item.highestCurrListing = self.price
-        elif self.price < item.lowestCurrListing:
-            item.lowestCurrListing = self.price
+        item.stock = (len(Listing.objects.get_queryset().filter(
+            available = True,
+            item = item)))
+        item.lowestCurrListing = Listing.objects.lowestCurrentPrice(item.name)['price__min']
+        item.highestCurrListing = Listing.objects.highestCurrentPrice(item.name)['price__max']
+
+        avg = Listing.objects.avgSoldPrice(item.name)['price__avg']
+        if (avg == None):
+            item.avgSoldPrice = 0.00
+        else:
+            item.avgSoldPrice = avg
+
+        lowest =  Listing.objects.highestSoldPrice(item.name)['price__max']
+        if (lowest == None):
+            item.lowestSoldListing = 0.00
+        else:
+            item.lowestSoldListing = lowest
+
+        highest = Listing.objects.lowestSoldPrice(item.name)['price__min']
+        if(highest == None):
+            item.highestSoldListing = 0.00
+        else:
+            item.highestSoldListing = highest
+
         item.save()
-        #item.stock = len(item.listings)
+
 
 
     @property
