@@ -2,7 +2,9 @@ from rest_framework.serializers import (
     HyperlinkedIdentityField,
     ModelSerializer,
     SerializerMethodField,
-    StringRelatedField
+    StringRelatedField,
+    RelatedField,
+    ReadOnlyField
     )
 from django_apps.shop.models import Category, SubCategory, Item, Listing, Transaction
 
@@ -84,10 +86,13 @@ class ItemCreateUpdateSerializer(ModelSerializer):
 
 class ItemDetailSeralizer(ModelSerializer):
     class Meta:
+        listings = StringRelatedField(many = True)
         category = CategoryDetailSerializer(read_only = True)
         subCatergory = SubCategoryDetailSerializer(read_only = True)
         model = Item
         fields = [
+            'id',
+            'slug',
             'name',
             'description',
             'material',
@@ -100,7 +105,8 @@ class ItemDetailSeralizer(ModelSerializer):
             'highestSoldListing',
             'lastActive',
             'visible',
-            'stock'
+            'stock',
+            'listings'
         ]
 
 class ItemListlSeralizer(ModelSerializer):
@@ -109,14 +115,17 @@ class ItemListlSeralizer(ModelSerializer):
         subCatergory = SubCategoryDetailSerializer(read_only = True)
         model = Item
         fields = [
+            'id',
+            'slug',
             'name',
-            'description',
-            'material',
             'category',
             'subCategory',
             'lastActive',
             'visible',
             'stock',
+            'avgSoldPrice',
+            'lowestCurrListing',
+            'highestCurrListing',
         ]
 #------------------------------------------------------------------------------
 #Listing
@@ -124,6 +133,7 @@ class ItemListlSeralizer(ModelSerializer):
 
 
 class ListingCreateUpdateSerializer(ModelSerializer):
+
 
     class Meta:
         model = Listing
@@ -137,12 +147,15 @@ class ListingCreateUpdateSerializer(ModelSerializer):
 
 class ListingDetailSeralizer(ModelSerializer):
 
+    item_name = ReadOnlyField
+
     class Meta:
         model = Listing
-        item = ItemDetailSeralizer(read_only = True)
         fields = [
+            'id',
             'seller',
             'item',
+            'item_name',
             'conditionRating',
             'description',
             'location',
@@ -154,11 +167,15 @@ class ListingDetailSeralizer(ModelSerializer):
 
 class ListingListSeralizer(ModelSerializer):
 
+    item_name = ReadOnlyField
+
+
     class Meta:
-        item = ItemDetailSeralizer(read_only = True)
         model = Listing
         fields = [
+            'id',
             'item',
+            'item_name',
             'conditionRating',
             'price',
             'size',
@@ -167,10 +184,25 @@ class ListingListSeralizer(ModelSerializer):
         ]
 
 
-
 #------------------------------------------------------------------------------
 #Transaction
 #------------------------------------------------------------------------------
+
+class TransactionCreateUpdateSerializer(ModelSerializer):
+
+    class Meta:
+        model = Transaction
+
+        fields = [
+            'seller',
+            'buyer',
+            'amountExchanged',
+            'deliveryAddress',
+            'receiveAddress',
+            'listing'
+        ]
+
+
 
 class TransactionSerializer(ModelSerializer):
 
