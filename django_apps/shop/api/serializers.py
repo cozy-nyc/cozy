@@ -175,7 +175,7 @@ class ListingListSeralizer(ModelSerializer):
         fields = [
             'id',
             'item',
-            'item_name'
+            'item_name',
             'conditionRating',
             'price',
             'size',

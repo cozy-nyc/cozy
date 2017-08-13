@@ -194,6 +194,21 @@ class Listing(models.Model):
     def __str__(self):
         return self.item.name
 
+
+    def save(self, **kwargs):
+        super(Listing, self).save(**kwargs)
+        item = self.item
+        if item.lowestCurrListing == 1.00 and item.highestCurrListing == 1.00:
+            item.lowestCurrListing = self.price
+            item.highestCurrListing = self.price
+        elif self.price > item.highestCurrListing:
+            item.highestCurrListing = self.price
+        elif self.price < item.lowestCurrListing:
+            item.lowestCurrListing = self.price
+        item.save()
+        #item.stock = len(item.listings)
+
+
     @property
     def item_name(self):
         return self.item.name
@@ -353,21 +368,22 @@ class Transaction(models.Model):
 #
 #--------------------------------------------------------------------------------
 #
+''''
+    def update_item(sender, **kwargs):
+        instance = kwargs['instance']
+        created = kwargs['created']
+        raw = kwargs['raw']
+        if created and not raw:
+            if instance.item.lowestCurrListing == 1.00 and instance.item.highestCurrListing == 1.00:
+                instance.item.lowestCurrListing = instance.price
+                instance.item.highestCurrListing = instance.price
+            if instance.price > instance.item.highestCurrListing:
+                instance.item.highestCurrListing = listing.price
+            elif instance.price < instance.item.lowestCurrListing:
+                instance.item.lowestCurrListing = listing.price
+            instance.item.stock += 1
+            instance.item.lastActive = datetime.date.today()
+            instance.updated = datetime.date.today()
 
-def update_item(sender, **kwargs):
-    instance = kwargs['instance']
-    created = kwargs['created']
-    raw = kwargs['raw']
-    if created and not raw:
-        if instance.item.lowestCurrListing == 1.00 and instance.item.highestCurrListing == 1.00:
-            instance.item.lowestCurrListing = instance.price
-            instance.item.highestCurrListing = instance.price
-        if instance.price > instance.item.highestCurrListing:
-            instance.item.highestCurrListing = listing.price
-        elif instance.price < instance.item.lowestCurrListing:
-            instance.item.lowestCurrListing = listing.price
-        instance.item.stock += 1
-        instance.item.lastActive = datetime.date.today()
-        instance.updated = datetime.date.today()
-
-    post_save.connect(update_item, sender=Listing)
+        post_save.connect(update_item, sender=Listing)
+'''
