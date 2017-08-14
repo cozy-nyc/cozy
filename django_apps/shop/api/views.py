@@ -179,7 +179,7 @@ class TransactionCreate(CreateAPIView):
     queryset = Transaction.objects.all()
     serializer_class = TransactionCreateUpdateSerializer
     premission_classes = [IsAuthenticated]
-
+ 
 
     #def perform_create(self, serializer):
 

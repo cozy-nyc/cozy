@@ -82,7 +82,8 @@ class ItemCreateUpdateSerializer(ModelSerializer):
             'material',
             'category',
             'subCategory',
-            'available'
+            'available',
+            'image '
         ]
 
 class ItemDetailSeralizer(ModelSerializer):
@@ -90,6 +91,7 @@ class ItemDetailSeralizer(ModelSerializer):
         listings = StringRelatedField(many = True)
         category = CategoryDetailSerializer(read_only = True)
         subCatergory = SubCategoryDetailSerializer(read_only = True)
+        image = SerializerMethodField()
         model = Item
         fields = [
             'id',
@@ -110,10 +112,19 @@ class ItemDetailSeralizer(ModelSerializer):
             'listings'
         ]
 
+        def get_image(self,obj):
+            try:
+                image = obj.image.url
+            except:
+                image = None
+            return image
+
 class ItemListlSeralizer(ModelSerializer):
     class Meta:
         category = CategoryDetailSerializer(read_only = True)
         subCatergory = SubCategoryDetailSerializer(read_only = True)
+        image = SerializerMethodField()
+
         model = Item
         fields = [
             'id',
@@ -128,6 +139,12 @@ class ItemListlSeralizer(ModelSerializer):
             'lowestCurrListing',
             'highestCurrListing',
         ]
+        def get_image(self,obj):
+            try:
+                image = obj.image.url
+            except:
+                image = None
+            return image
 #------------------------------------------------------------------------------
 #Listing
 #------------------------------------------------------------------------------
@@ -140,22 +157,27 @@ class ListingCreateUpdateSerializer(ModelSerializer):
         model = Listing
         fields = [
             'item',
+            'image',
             'conditionRating',
             'location',
             'price',
             'size',
+            'image'
         ]
 
 class ListingDetailSeralizer(ModelSerializer):
 
     item_name = ReadOnlyField
     item_slug = ReadOnlyField
+    image = SerializerMethodField()
+
 
     class Meta:
         model = Listing
         fields = [
             'id',
             'seller',
+            'image',
             'item',
             'item_name',
             'item_slug',
@@ -167,17 +189,25 @@ class ListingDetailSeralizer(ModelSerializer):
             'available',
             'created',
         ]
+    def get_image(self,obj):
+        try:
+            image = obj.image.url
+        except:
+            image = None
+        return image
 
 class ListingListSeralizer(ModelSerializer):
 
     item_name = ReadOnlyField
     item_slug = ReadOnlyField
+    image = SerializerMethodField()
 
     class Meta:
         model = Listing
         fields = [
             'id',
             'item',
+            'image',
             'item_name',
             'item_slug',
             'conditionRating',
@@ -187,7 +217,12 @@ class ListingListSeralizer(ModelSerializer):
             'created',
 
         ]
-
+    def get_image(self,obj):
+        try:
+            image = obj.image.url
+        except:
+            image = None
+        return image
 
 #------------------------------------------------------------------------------
 #Transaction

@@ -21,6 +21,7 @@ webpack-stats*
 staticfiles
 static_cdn
 media_cdn
+media
 
 # Ignore sqlite
 db.sqlite3

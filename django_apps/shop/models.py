@@ -94,6 +94,7 @@ class Item(models.Model):
     """
     name = models.CharField(max_length=200, db_index=True, unique = True)
     slug = models.SlugField(max_length=200, db_index=True)
+    image = models.ImageField()
     # brand = models.ForeignKey(Brand)
     description = models.TextField(blank=True)
     material = models.TextField(blank=True)
@@ -173,6 +174,7 @@ class Listing(models.Model):
     """
     seller = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     item = models.ForeignKey(Item, related_name='listings')
+    image = models.ImageField()
     conditionRating = models.FloatField(
         default=5.0,
         validators=[MaxValueValidator(10.0), MinValueValidator(1.0)]
