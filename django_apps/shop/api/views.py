@@ -16,14 +16,13 @@ from rest_framework.generics import (
     RetrieveUpdateAPIView
     )
 
-from .permissions import IsOwnerOrReadOnly
+from .permissions import IsOwnerOrReadOnly, IsBuyerOrSeller
 
 from rest_framework.permissions import (
     AllowAny,
     IsAuthenticated,
     IsAdminUser,
     IsAuthenticatedOrReadOnly,
-
     )
 
 from .serializers import *
@@ -176,14 +175,26 @@ class ListingList(ListAPIView):
 #Transaction
 #------------------------------------------------------------------------------
 
+class TransactionCreate(CreateAPIView):
+    queryset = Listing.objects.all()
+    serializer_class = TransactionCreateUpdateSerializer
+    premission_classes = [IsAuthenticated]
+
+    #def perform_create(self, serializer):
+
+class TransactionUpdate(RetrieveUpdateAPIView):
+    queryset = Listing.objects.all()
+    serializer_class = TransactionCreateUpdateSerializer
+    permission_classes = [IsBuyerOrSeller, IsAdminUser]
+
 
 class TransactionList(ListAPIView):
-    queryset = Transaction.objects.all()
+    queryset = Listing.objects.all()
     serializer = TransactionSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsAdminUser, IsAuthenticated]
 
 
 class TransactionDetail(RetrieveAPIView):
     queryset = Transaction.objects.all()
     serializer_class = TransactionSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsBuyerOrSeller, IsAdminUser]

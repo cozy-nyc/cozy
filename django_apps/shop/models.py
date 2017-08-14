@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.utils import timezone
 from django.core.urlresolvers import reverse
 from django.core.validators import MaxValueValidator, MinValueValidator
 from .manager import CategoryManager, SubCatergoryManager, ItemManager, ListingManager, TransactionManager
@@ -129,7 +130,7 @@ class Item(models.Model):
             decimal_places=2,
             max_digits=10
             )
-    lastActive = models.DateTimeField(default = datetime.date.today())
+    lastActive = models.DateTimeField(default = timezone.now)
     visible = models.BooleanField(default = True)
     stock = models.PositiveIntegerField(
             default = 0
@@ -239,6 +240,9 @@ class Listing(models.Model):
     def item_name(self):
         return self.item.name
 
+    @property
+    def item_slug(self):
+        return self.item.slug
 
     class Meta:
         ordering = ('-created',)
@@ -390,26 +394,3 @@ class Transaction(models.Model):
             self.listing.item.highestSoldListing = self.listng.objects.highestSoldPrice(
                 self.listing.item.name
             )
-
-#
-#--------------------------------------------------------------------------------
-#
-''''
-    def update_item(sender, **kwargs):
-        instance = kwargs['instance']
-        created = kwargs['created']
-        raw = kwargs['raw']
-        if created and not raw:
-            if instance.item.lowestCurrListing == 1.00 and instance.item.highestCurrListing == 1.00:
-                instance.item.lowestCurrListing = instance.price
-                instance.item.highestCurrListing = instance.price
-            if instance.price > instance.item.highestCurrListing:
-                instance.item.highestCurrListing = listing.price
-            elif instance.price < instance.item.lowestCurrListing:
-                instance.item.lowestCurrListing = listing.price
-            instance.item.stock += 1
-            instance.item.lastActive = datetime.date.today()
-            instance.updated = datetime.date.today()
-
-        post_save.connect(update_item, sender=Listing)
-'''
