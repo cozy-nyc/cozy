@@ -304,7 +304,7 @@ class Listing(models.Model):
         elif self.price > self.item.highestCurrListing:
             self.item.highestCurrentPrice = self.price
 
-
+#Add a save to transactions
 class Transaction(models.Model):
     """
         This is a model for listings on the exchange.
@@ -356,6 +356,23 @@ class Transaction(models.Model):
     )
     isValid = models.BooleanField(default = True)
     objects = TransactionManager()
+
+
+    def save(self, **kwargs):
+        """
+            This function is to make the listin automatcally update the listing depending
+            on the transaction
+
+            Args:
+                self: current instance of that object
+        """
+        super(Transaction, self).save(**kwargs)
+        listing = self.listing
+        if self.isValid:
+            listing.available = False
+            listing.save()
+
+
 
     def transactionMade(self):
         """

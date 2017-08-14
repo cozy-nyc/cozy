@@ -185,6 +185,7 @@ class ListingListSeralizer(ModelSerializer):
             'size',
             'available',
             'created',
+
         ]
 
 
@@ -205,7 +206,9 @@ class TransactionCreateUpdateSerializer(ModelSerializer):
             'receiveAddress',
             'listing',
             'ratingSeller',
-            'ratingBuyer'
+            'ratingBuyer',
+            'isValid'
+
         ]
 
 class TransactionDetailSerializer(ModelSerializer):

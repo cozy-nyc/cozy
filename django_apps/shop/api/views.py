@@ -176,22 +176,29 @@ class ListingList(ListAPIView):
 #------------------------------------------------------------------------------
 
 class TransactionCreate(CreateAPIView):
-    queryset = Listing.objects.all()
+    queryset = Transaction.objects.all()
     serializer_class = TransactionCreateUpdateSerializer
     premission_classes = [IsAuthenticated]
+
 
     #def perform_create(self, serializer):
 
 class TransactionUpdate(RetrieveUpdateAPIView):
-    queryset = Listing.objects.all()
+    queryset = Transaction.objects.all()
     serializer_class = TransactionCreateUpdateSerializer
     permission_classes = [IsBuyerOrSeller, IsAdminUser]
 
-
+##Need to add the query to this thing
 class TransactionList(ListAPIView):
-    queryset = Listing.objects.all()
-    serializer = TransactionSerializer
+    serializer_class = TransactionSerializer
     permission_classes = [IsAdminUser, IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        if (user.is_superuser):
+            return Transaction.objects.all()
+        else:
+            return Transaction.objects.filter(Q(seller = user) | Q(buyer = user))
 
 
 class TransactionDetail(RetrieveAPIView):
