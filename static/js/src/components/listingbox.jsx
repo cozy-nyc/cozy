@@ -9,7 +9,7 @@ const ListingBox= (props) => {
    return (
       <Link to={`/s/${props.itemid}/jawns/${props.listingid}`} activeClassName="active">
          <h1>{ props.name }</h1>
-         <h1>{ props.price }</h1>
+         <h1>${ props.price }</h1>
          <h1>{ props.size }</h1>
       </Link>
   );

@@ -1,14 +1,18 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
 
+import LoginForm from '../forms/login-form'
 
-const About = () => {
-   return (
-      <div>
-         Nut
-      </div>
-   );
-};
+class Login extends Component {
 
-export default About;
+   render() {
+      return (
+         <div>
+            <h1>Login</h1>
+            <LoginForm />
+         </div>
+       );
+   }
+}
+
+export default Login;

@@ -1,9 +1,10 @@
 import api from '../utils/api';
+import { SubmissionError } from 'redux-form'
 
-export function login() {
+export function login(values) {
    api.post('/api-token-auth/',{
-       username: 'test',
-       password: 'yeet12345'
+       username: values.username,
+       password: values.password
        })
        .then(function(response){
          csrftoken = response.data
@@ -12,5 +13,4 @@ export function login() {
        .catch(function(error) {
          console.log(error);
        });
-    }
 }
