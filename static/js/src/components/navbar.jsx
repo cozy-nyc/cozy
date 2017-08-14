@@ -1,15 +1,16 @@
 import React from 'react';
+import { IndexLink } from 'react-router'
+
+import SearchBar from './searchbar';
 
 const Navbar = () => (
-
     <div id="navbar">
-      <a className="navbar-brand" href="">exchange</a>
-      <input type="text" placeholder="Search..." className="form-control"></input>
+      <IndexLink to="/">exchange</IndexLink>
+      <SearchBar />
       <span>
         <a href="">Sell</a> | <a href="">Account</a>
       </span>
     </div>
-
 );
 
 export default Navbar;

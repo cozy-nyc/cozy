@@ -1,4 +1,4 @@
-export default function (state=null, action) {
+export default function reducer(state=null, action) {
    switch (action.type) {
       case "CATEGORY_SELECTED":
          return action.payload;

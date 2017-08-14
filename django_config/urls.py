@@ -28,6 +28,7 @@ from django_apps.contact import views as contact_views
 
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name="index.html")),
+    url(r'^about/$', TemplateView.as_view(template_name="index.html")),
     url(r'^rest-auth/', include('rest_auth.urls')),
     url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
     url(r'^api-token-auth/', obtain_jwt_token),
@@ -35,13 +36,11 @@ urlpatterns = [
     url(r'^api-token-verify/', verify_jwt_token),
     url(r'^admin/', admin.site.urls),
     url(r'^', include('django_apps.shop.urls', namespace='shop')),
-    url(r'^about/$', shop_views.about, name='about'),
-    url(r'^contact/$', contact_views.contact, name='contact'),
 
     url(r'^register/$', views.register, name='register'),
 
     # login / logout urls
-    url(r'^login/$', auth_views.login, name='login'),
+    url(r'^login/$', TemplateView.as_view(template_name="index.html")),
     url(r'^logout/$', auth_views.logout, name='logout'),
     url(r'^logout-then-login/$', auth_views.logout_then_login, name='logout_then_login'),
 
