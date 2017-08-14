@@ -2,24 +2,24 @@ export default function Reducer(
    state={
       fetching: false,
       fetched: false,
-      listings: [],
+      items: [],
       error: null,
    }, action) {
    switch (action.type) {
-      case "FETCH_LISTINGS_PENDING": {
+      case "FETCH_ITEMS_PENDING": {
          return {...state, fetching: true}
          break;
       }
-      case "FETCH_LISTINGS_REJECTED":{
+      case "FETCH_ITEMS_REJECTED":{
          return {...state, fecthing: false, error: action.payload}
          break;
       }
-      case "FETCH_LISTINGS_FULFILLED": {
+      case "FETCH_ITEMS_FULFILLED": {
          return {
             ...state,
             fecthing: false,
             fetched: true,
-            listings: action.payload,
+            items: action.payload,
             }
          break;
       }

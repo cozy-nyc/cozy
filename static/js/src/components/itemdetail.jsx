@@ -2,15 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
-import Navbar from '../components/navbar';
+import Navbar from './navbar';
+import ListingQuery from './listingquery';
 
-const Listing = () => {
+
+
+const Item = () => {
    return (
       <div>
          <Navbar />
-
       </div>
    );
 };
 
-export default Listing;
+export default Item;

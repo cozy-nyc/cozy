@@ -8,7 +8,7 @@ import ListingBox from './listingbox';
 @connect((store) => {
    return {
       listings: store.listings.listings,
-      listingFetched: store.listings.fetched,
+      listingsFetched: store.listings.fetched,
       items: store.items.item
    };
 })
@@ -22,7 +22,13 @@ export default class ListingQuery extends React.Component {
 
       const { item, listings } = this.props;
 
-      const mappedListings = listings.map(listing => <li><ListingBox price={ listing.price } size={ listing.size }/></li>)
+      const mappedListings = listings.map(listing => <li><ListingBox
+         name={ listing.item_name }
+         itemid={ listing.item }
+         listingid={ listing.id }
+         price={ listing.price }
+         size={ listing.size }
+         /></li>)
 
       return (
          <ul>
