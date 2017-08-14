@@ -149,6 +149,7 @@ class ListingCreateUpdateSerializer(ModelSerializer):
 class ListingDetailSeralizer(ModelSerializer):
 
     item_name = ReadOnlyField
+    item_slug = ReadOnlyField
 
     class Meta:
         model = Listing
@@ -157,6 +158,7 @@ class ListingDetailSeralizer(ModelSerializer):
             'seller',
             'item',
             'item_name',
+            'item_slug',
             'conditionRating',
             'description',
             'location',
@@ -169,7 +171,7 @@ class ListingDetailSeralizer(ModelSerializer):
 class ListingListSeralizer(ModelSerializer):
 
     item_name = ReadOnlyField
-
+    item_slug = ReadOnlyField
 
     class Meta:
         model = Listing
@@ -177,11 +179,13 @@ class ListingListSeralizer(ModelSerializer):
             'id',
             'item',
             'item_name',
+            'item_slug',
             'conditionRating',
             'price',
             'size',
             'available',
             'created',
+
         ]
 
 
@@ -200,9 +204,25 @@ class TransactionCreateUpdateSerializer(ModelSerializer):
             'amountExchanged',
             'deliveryAddress',
             'receiveAddress',
-            'listing'
+            'listing',
+            'ratingSeller',
+            'ratingBuyer',
+            'isValid'
+
         ]
 
+class TransactionDetailSerializer(ModelSerializer):
+    class Meta:
+        model = Transaction
+
+        fields = '__all__'
+
+class TransactionListSerializer(ModelSerializer):
+    class Meta:
+
+        model = Transaction
+
+        fields = '__all__'
 
 
 class TransactionSerializer(ModelSerializer):

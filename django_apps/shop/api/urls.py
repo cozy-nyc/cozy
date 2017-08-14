@@ -24,5 +24,9 @@ urlpatterns = [
  	url(r'^api/items/(?P<pk>[0-9]+)/$', views.ItemDetail.as_view()),
     url(r'^api/items/edit/(?P<pk>[0-9]+)/$', views.ItemUpdate.as_view()),
     url(r'^api/items/delete/(?P<pk>[0-9]+)/$', views.ItemDelete.as_view()),
+    url(r'^api/transactions/$', views.TransactionList.as_view()),
+    url(r'^api/transactions/create/$', views.TransactionCreate.as_view()),
+ 	url(r'^api/transactions/(?P<pk>[0-9]+)/$', views.TransactionDetail.as_view()),
+    url(r'^api/transactions/edit/(?P<pk>[0-9]+)/$', views.TransactionUpdate.as_view()),
 
 ]
