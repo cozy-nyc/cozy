@@ -18,7 +18,8 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.views.generic import TemplateView
 from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token, verify_jwt_token
-from django.contrib.auth import views self.assert_(boolean expression, 'message') auth_views
+from django.contrib.auth import views as auth_views
+#from django.contrib.auth import views self.assert_(boolean expression, 'message') auth_views
 from . import views
 
 from django_apps.shop import views as shop_views

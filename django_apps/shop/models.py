@@ -138,6 +138,21 @@ class Item(models.Model):
     )
     objects = ItemManager()
 
+    def save(self, **kwargs):
+        """
+            This function is an override of the save function so that the item object
+            will be automiatcally updated everytime there is  achange within the listing
+
+            Args:
+                self: current instance of that object
+        """
+        if not self.pk:
+            slug = self.name
+        super(Item, self).save(**kwargs)
+
+
+
+
     def __str__(self):
         return self.name
 

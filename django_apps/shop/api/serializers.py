@@ -14,7 +14,14 @@ from django_apps.shop.models import Category, SubCategory, Item, Listing, Transa
 #------------------------------------------------------------------------------
 
 class CategoryListSerializer(ModelSerializer):
+    '''
+    This class is a serializer that will show what information should display
+    on the API when listing all Category models.
 
+    Attributes:
+        id : the ID of the Category
+        name: the name given to that Category
+        '''
     class Meta:
         model = Category
         fields = [
@@ -23,6 +30,14 @@ class CategoryListSerializer(ModelSerializer):
         ]
 
 class CategoryDetailSerializer(ModelSerializer):
+    '''
+    This class is a serializer that will show what information should display
+    on the API when listing all Category models.
+
+    Attributes:
+        id : the ID of the Category
+        name: the name given to that Category
+    '''
     class Meta:
         model = Category
         fields = [
