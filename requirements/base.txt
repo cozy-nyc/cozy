@@ -25,3 +25,5 @@ pytz==2016.10
 pillow
 
 stripe
+
+django-filter

@@ -4,7 +4,7 @@ from rest_framework.serializers import (
     SerializerMethodField,
     StringRelatedField,
     RelatedField,
-    ReadOnlyField
+    ReadOnlyField,
     )
 from django_apps.shop.models import Category, SubCategory, Item, Listing, Transaction
 
@@ -97,8 +97,7 @@ class ItemCreateUpdateSerializer(ModelSerializer):
             'material',
             'category',
             'subCategory',
-            'available',
-            'image '
+            'image'
         ]
 
 class ItemDetailSeralizer(ModelSerializer):
@@ -112,6 +111,7 @@ class ItemDetailSeralizer(ModelSerializer):
             'id',
             'slug',
             'name',
+            'image',
             'description',
             'material',
             'category',
@@ -145,6 +145,7 @@ class ItemListlSeralizer(ModelSerializer):
             'id',
             'slug',
             'name',
+            'image',
             'category',
             'subCategory',
             'lastActive',

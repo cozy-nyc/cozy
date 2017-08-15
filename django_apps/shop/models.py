@@ -33,6 +33,23 @@ class Category(models.Model):
     def get_absolute_url(self):
         return reverse('shop:item_list_by_category', args=[self.slug])
 
+    def save(self, **kwargs):
+        """
+            This function is an override of the save function of Category
+            so thaat we can automatically create a slug
+            Args:s
+                self: current instance of that object
+        """
+        if not self.pk:
+            slug = self.name
+            slug = slug.lower()
+            slug = slug.replace(" ","-")
+            self.slug = slug
+
+        super(Category, self).save(**kwargs)
+
+
+
 
 class SubCategory(models.Model):
     """
@@ -45,12 +62,31 @@ class SubCategory(models.Model):
             child to category.
     """
     name = models.CharField(max_length=16)
+    slug = models.SlugField(max_length = 16)
     parent = models.ForeignKey(Category, related_name = 'subCats')
     objects = SubCatergoryManager()
 
 
     def __str__(self):
         return self.name
+
+    def save(self, **kwargs):
+        """
+            This function is an override of the save function so that the subCategory object
+            will be automiatcally updated everytime there is  achange within the listing
+
+            Args:
+                self: current instance of that object
+        """
+        if not self.pk:
+            slug = self.name
+            slug = slug.lower()
+            slug = slug.replace(" ","-")
+            self.slug = slug
+
+        super(SubCategory, self).save(**kwargs)
+
+
 
 
     class Meta:
@@ -148,6 +184,10 @@ class Item(models.Model):
         """
         if not self.pk:
             slug = self.name
+            slug = slug.lower()
+            slug = slug.replace(" ","-")
+            self.slug = slug
+
         super(Item, self).save(**kwargs)
 
 
@@ -189,7 +229,7 @@ class Listing(models.Model):
     """
     seller = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     item = models.ForeignKey(Item, related_name='listings')
-    image = models.ImageField()
+    image = models.ImageField("upload image")
     conditionRating = models.FloatField(
         default=5.0,
         validators=[MaxValueValidator(10.0), MinValueValidator(1.0)]
@@ -226,8 +266,16 @@ class Listing(models.Model):
         item.stock = (len(Listing.objects.get_queryset().filter(
             available = True,
             item = item)))
-        item.lowestCurrListing = Listing.objects.lowestCurrentPrice(item.name)['price__min']
-        item.highestCurrListing = Listing.objects.highestCurrentPrice(item.name)['price__max']
+
+        if(Listing.objects.lowestCurrentPrice(item.name)['price__min'] == None):
+            item.lowestCurrListing = 0.00
+        else:
+            item.lowestCurrListing = Listing.objects.lowestCurrentPrice(item.name)['price__min']
+
+        if(Listing.objects.highestCurrentPrice(item.name)['price__max'] == None):
+            item.highestCurrListing = 0.00
+        else:
+            item.highestCurrListing = Listing.objects.highestCurrentPrice(item.name)['price__max']
 
         avg = Listing.objects.avgSoldPrice(item.name)['price__avg']
         if (avg == None):
