@@ -7,7 +7,9 @@ module.exports = {
       exclude: /node_modules/,
       loader: 'babel-loader',
       query: {
-        presets: ['es2015', 'stage-2', 'react']
+         babelrc: false,
+        presets: ['es2015', 'stage-2', 'react'],
+        plugins: ['transform-decorators-legacy', 'react-hot-loader/babel']
       }
     }, {
       test: /\.css$/,
