@@ -22,5 +22,8 @@ django-crispy-forms
 # Time zones support
 pytz==2016.10
 
+pillow
 
 stripe
+
+django-filter
