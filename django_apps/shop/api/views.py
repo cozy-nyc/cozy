@@ -5,6 +5,8 @@ from rest_framework.filters import (
         OrderingFilter,
     )
 
+from django_filters.rest_framework import DjangoFilterBackend
+
 from rest_framework.response import Response
 
 from rest_framework.generics import (
@@ -104,7 +106,8 @@ class ItemDetail(RetrieveAPIView):
 class ItemList(ListAPIView):
     queryset = Item.objects.all()
     serializer_class = ItemListlSeralizer
-    search_fields = ['name', 'slug', 'category', 'subCatergory' , 'description']
+    filter_backends = (DjangoFilterBackend,)
+    search_fields = ['name', 'category', 'subCatergory' , 'description']
     permission_classes = [AllowAny]
 
     def get_queryset(self, *args, **kwargs):
@@ -113,8 +116,7 @@ class ItemList(ListAPIView):
         if query:
             queryset_list = queryset_list.filter(
                 Q(name__icontains = query)|
-                Q(slug___icontains = query)|
-                Q(subCategory__icontains = query)|
+                Q(category__name__icontains = query)|
                 Q(description__icontains = query)
             ).distinct()
         return queryset_list
@@ -164,7 +166,11 @@ class ListingList(ListAPIView):
         if query:
             queryset_list = queryset_list.filter(
             Q(item__name__icontains = query)|
+            Q(item__description__icontains = query)|
+            Q(item__subCategory__name__icontains = query)|
+            Q(item__category__name__icontains = query)|
             Q(price__icontains = query)
+
             ).distinct()
         return queryset_list
 

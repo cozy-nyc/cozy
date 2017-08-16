@@ -19,6 +19,7 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token, verify_jwt_token
 from django.contrib.auth import views as auth_views
+#from django.contrib.auth import views self.assert_(boolean expression, 'message') auth_views
 from . import views
 
 from django_apps.shop import views as shop_views
@@ -36,24 +37,6 @@ urlpatterns = [
     url(r'^api-token-verify/', verify_jwt_token),
     url(r'^admin/', admin.site.urls),
     url(r'^', include('django_apps.shop.urls', namespace='shop')),
-
-    url(r'^register/$', views.register, name='register'),
-
-    # login / logout urls
-    url(r'^login/$', TemplateView.as_view(template_name="index.html")),
-    url(r'^logout/$', auth_views.logout, name='logout'),
-    url(r'^logout-then-login/$', auth_views.logout_then_login, name='logout_then_login'),
-
-    # change password urls
-    url(r'^password-change/$', auth_views.password_change, name='password_change'),
-    url(r'^password-change/done/$', auth_views.password_change_done, name='password_change_done'),
-
-    # restore password urls
-    url(r'^password-reset/$', auth_views.password_reset, name='password_reset'),
-    url(r'^password-reset/done/$', auth_views.password_reset_done, name='password_reset_done'),
-    url(r'^password-reset/confirm/(?P<uidb64>[-\w]+)/(?P<token>[-\w]+)/$', auth_views.password_reset_confirm, name='password_reset_confirm'),
-    url(r'^password-reset/complete/$', auth_views.password_reset_complete, name='password_reset_complete'),
-
 ]
 
 if settings.DEBUG:
