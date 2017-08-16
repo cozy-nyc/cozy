@@ -10,7 +10,6 @@ import ListingQuery from './listingquery';
 const Item = () => {
    return (
       <div>
-         <Navbar />
       </div>
    );
 };

@@ -1,15 +1,17 @@
 import { combineReducers } from 'redux';
+import { reducer as formReducer } from 'redux-form';
 
 import CategoryReducer from './reducer-categories';
 import ItemReducer from './reducer-items';
 import ListingReducer from './reducer-listings';
-import UserReducer from './reducer-users'
+import authReducer from './reducer-auth'
 
 const allReducers = combineReducers({
    categories: CategoryReducer,
    items: ItemReducer,
    listings: ListingReducer,
-   activeUser: UserReducer
+   auth: authReducer,
+   form: formReducer
 });
 
 export default allReducers;
