@@ -47,11 +47,11 @@ def item_list(request, category_slug=None):
 def item_detail(request, id, slug):
     """This is the view for a item Page
     """
-    item = get_object_or_404(Item, id=id, visible=True)
+    item = get_object_or_404(Item, id=id)
     # cart_item_form = CartAddItemForm()
     context = {
         'item': item,
-        'listing': Listing.objects.filter(item=item, visible=True)
+        'listing': Listing.objects.filter(item=item)
         # 'cart_item_form': cart_item_form
     }
     template = 'item/item.html'
@@ -60,7 +60,7 @@ def item_detail(request, id, slug):
 def listing(request, id, item_slug, item_id):
     """This is the view for a listing page
     """
-    listing = get_object_or_404(Listing, id=id, visible=True)
+    listing = get_object_or_404(Listing, id=id)
     item = listing.item
     context = {
         'listing': listing,

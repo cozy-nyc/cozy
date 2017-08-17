@@ -29,6 +29,7 @@ from django_apps.contact import views as contact_views
 
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name="index.html")),
+    url(r'^about/$', TemplateView.as_view(template_name="index.html")),
     url(r'^rest-auth/', include('rest_auth.urls')),
     url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
     url(r'^api-token-auth/', obtain_jwt_token),
@@ -36,7 +37,6 @@ urlpatterns = [
     url(r'^api-token-verify/', verify_jwt_token),
     url(r'^admin/', admin.site.urls),
     url(r'^', include('django_apps.shop.urls', namespace='shop')),
-
 ]
 
 if settings.DEBUG:
