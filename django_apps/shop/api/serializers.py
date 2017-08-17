@@ -42,9 +42,9 @@ class CategoryDetailSerializer(ModelSerializer):
         model = Category
         fields = [
             'id',
-            'name'
             'slug'
         ]
+        'name'
 
 #------------------------------------------------------------------------------
 #subCategory
