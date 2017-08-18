@@ -22,7 +22,7 @@ export default class ListingQuery extends React.Component {
 
       const { item, listings } = this.props;
 
-      const mappedListings = listings.map(listing => <li><ListingBox
+      const mappedListings = listings.map(listing => <li key={ listing.id }><ListingBox
          name={ listing.item_name }
          itemid={ listing.item }
          listingid={ listing.id }
