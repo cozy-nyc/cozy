@@ -190,8 +190,13 @@ class Item(models.Model):
 
         super(Item, self).save(**kwargs)
 
+    @property
+    def category_name(self):
+        return self.category.name
 
-
+    @property
+    def subCategory_name(self):
+        return self.subCategory.name
 
     def __str__(self):
         return self.name
@@ -296,6 +301,7 @@ class Listing(models.Model):
             item.highestSoldListing = highest
 
         self.updated = datetime.date.today()
+        item.lastActive = datetime.date.today()
 
         item.save()
 
