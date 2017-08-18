@@ -30,3 +30,7 @@ db.sqlite3
 .DS_Store
 
 pgdata
+
+
+#commenting out old requirement shit
+#django-allauth==0.30.0
