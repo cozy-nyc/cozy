@@ -6,31 +6,44 @@ import {renderInput} from '../utils/redux-form-fields';
 class LoginForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {value: ''};
+    this.state = {
+      username: '',
+      password: ''
+    };
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-  handleChange(event) {
-    this.setState({value: event.target.value});
-  }
+  handleInputChange(event) {
+    const target = event.target;
+    const value = target.type === 'username' ? target.checked : target.value;
+    const name = target.name;
 
-  handleSubmit(event) {
-    alert('A name was submitted: ' + this.state.value);
-    event.preventDefault();
+    this.setState({
+      [name]: value
+    });
   }
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form>
         <label>
-          username or email:
-          <input type="text" value={this.state.value} onChange={this.handleChange} />
-          password:
-          <input type="password" value={this.state.value} onChange={this.handleChange} />
+          Is going:
+          <input
+            name="username"
+            type="text"
+            value={this.state.username}
+            onChange={this.handleInputChange} />
         </label>
-        <input type="submit" value="Submit" />
+        <br />
+        <label>
+          Number of guests:
+          <input
+            name="password"
+            type="password"
+            value={this.state.password}
+            onChange={this.handleInputChange} />
+        </label>
       </form>
     );
   }

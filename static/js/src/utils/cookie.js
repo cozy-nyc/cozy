@@ -7,7 +7,7 @@ import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
 
-const csrftoken = cookies.get('csrftoken');
+const csrftoken = cookies.get('token');
 console.log(csrftoken);
 
 

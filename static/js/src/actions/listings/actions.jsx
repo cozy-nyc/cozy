@@ -1,4 +1,4 @@
-import api from '../utils/api';
+import api from '../../utils/api';
 
 export function fetchListings() {
    return function(dispatch) {
@@ -14,7 +14,7 @@ export function fetchListings() {
 
 export function getListing(id){
    return function(dispatch){
-      api.get("http://0.0.0.0:8000/api/listings/"+id)
+      api.get("api/listings/"+id)
          .then((response) => {
             dispatch({type: "FETCH_LISTING_FULFILLED", payload: response.data})
          })
