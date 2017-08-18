@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { fetchListings } from '../actions/listing-actions';
+import { fetchListings } from '../actions/listings/actions';
 
 import ListingBox from './listingbox';
 
@@ -9,7 +9,7 @@ import ListingBox from './listingbox';
    return {
       listings: store.listings.listings,
       listingsFetched: store.listings.fetched,
-      items: store.items.item
+      items: store.items.items
    };
 })
 export default class ListingQuery extends React.Component {

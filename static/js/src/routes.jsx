@@ -3,10 +3,10 @@ import {IndexRoute, Route} from "react-router";
 
 import App from "./containers/app";
 import Dashboard from "./containers/dashboard";
-import Home from "./components/home"
-import About from "./components/about";
-import Item from "./components/itemdetail";
-import Listing from "./components/listingdetail";
+import Home from "./containers/home"
+import About from "./containers/about";
+import Item from "./containers/itemdetail";
+import Listing from "./containers/listingdetail";
 import Error404 from './components/404-error'
 import RequireAuth from './components/auth/require-auth'
 import Register from './components/auth/register';

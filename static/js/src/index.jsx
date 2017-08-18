@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import {browserHistory, Router} from "react-router";
 import Cookies from 'universal-cookie';
-import { AUTH_USER } from './actions/types';
+import { AUTH_USER } from './actions/auth/types';
 
 import store from './store';
 import routes from './routes';

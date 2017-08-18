@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { getListing } from '../actions/listing-actions';
+import { getListing } from '../actions/listings/actions';
 import { connect } from 'react-redux';
 
-import Navbar from './navbar';
 @connect((store) => ({
    listing: store.listings.activelisting,
 }))
