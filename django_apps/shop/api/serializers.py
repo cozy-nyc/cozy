@@ -42,9 +42,9 @@ class CategoryDetailSerializer(ModelSerializer):
         model = Category
         fields = [
             'id',
-            'name'
             'slug'
         ]
+        'name'
 
 #------------------------------------------------------------------------------
 #subCategory
@@ -115,7 +115,9 @@ class ItemDetailSeralizer(ModelSerializer):
             'description',
             'material',
             'category',
+            'category_name',
             'subCategory',
+            'subCategory_name',
             'avgSoldPrice',
             'lowestCurrListing',
             'highestCurrListing',
@@ -147,7 +149,9 @@ class ItemListlSeralizer(ModelSerializer):
             'name',
             'image',
             'category',
+            'category_name',
             'subCategory',
+            'subCategory_name',
             'lastActive',
             'visible',
             'stock',
