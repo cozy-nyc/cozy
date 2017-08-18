@@ -20,8 +20,8 @@ export default (
        <Route path="about" component={About} />
 
        // Shop Pages
-       <Route path="s/:itemid/jawns" component={Item}/>
-       <Route path="s/:itemid/jawns/:listingid" component={Listing}/>
+       <Route path="s/:itemid/:slug/" component={Item}/>
+       <Route path="s/:itemid/:slug/:listingid" component={Listing}/>
        <Route path="sell" component={Sell}/>
 
        // Auth Pages
