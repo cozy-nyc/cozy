@@ -15,7 +15,7 @@ admin.site.register(SubCategory)
 class ItemAdmin(admin.ModelAdmin):
     """
     """
-    list_display = ['name','slug','category', 'avgSoldPrice',]
+    list_display = ['name','slug', 'avgSoldPrice',]
     list_filter = ['category']
     list_editable = []
     prepopulated_fields = {'slug': ('name',)}
