@@ -25,7 +25,7 @@ api.defaults.headers.put.Accept = 'application/json';
 api.defaults.headers.patch.Accept = 'application/json';
 
 // JWT is going to be saved into cookie
-// cookies.save('jwt', response.data.token, { secure: true, httpOnly: true });
+// cookie.save('jwt', response.data.token, { secure: true, httpOnly: true });
 // Therefore it will automatically be sent in the header of all API requests
 // JWT will not be accessible to JavaScript because it is httpOnly :)
 

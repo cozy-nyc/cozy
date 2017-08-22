@@ -4,8 +4,6 @@ import { Provider } from 'react-redux';
 
 import ListingQuery from '../components/listingquery';
 
-
-
 const Home = () => {
    return (
       <div>

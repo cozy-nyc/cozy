@@ -27,3 +27,4 @@ pillow
 stripe
 
 django-filter
+django-cors-headers

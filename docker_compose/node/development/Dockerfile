@@ -1,9 +1,8 @@
 FROM node:latest
 
 
-
-COPY ./frontend /exchange/frontend
 WORKDIR /exchange/frontend
+COPY ./frontend /exchange/frontend
 
 RUN npm install && npm run build-development
 

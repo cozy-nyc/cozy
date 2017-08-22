@@ -72,6 +72,7 @@ THIRD_PARTY_APPS = [
     'rest_auth',
     'rest_auth.registration',
     'webpack_loader',
+    'corsheaders'
 ]
 
 LOCAL_APPS = [
@@ -94,6 +95,7 @@ DJANGO_SECURITY_MIDDLEWARE = [
 
 DJANGO_MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -103,6 +105,9 @@ DJANGO_MIDDLEWARE = [
 
 MIDDLEWARE = DJANGO_SECURITY_MIDDLEWARE + DJANGO_MIDDLEWARE
 
+CORS_ORIGIN_WHITELIST = (
+    '0.0.0.0:3000',
+)
 
 # URL Configuration
 # ------------------------------------------------------------------------------
