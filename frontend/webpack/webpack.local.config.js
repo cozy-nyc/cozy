@@ -3,29 +3,19 @@ var BundleTracker = require('webpack-bundle-tracker');
 var webpack = require('webpack');
 var config = require('./webpack.base.config.js');
 
-config.entry = {
-  main: [
-    'webpack-dev-server/client?http://0.0.0.0:3000',
-    'webpack/hot/only-dev-server',
-    'react-hot-loader/patch',
-    path.join(__dirname, '../src/index')
-  ]
-};
+config.entry = './src/index';
 
 config.devtool = 'inline-sourcemap';
 config.output = {
-  path: path.join(__dirname, '../static/builds-development/'),
-  filename: '[name]-[hash].js',
-  publicPath: 'http://0.0.0.0:3000/static/builds/',
+  path: path.join(__dirname, '../dist'),
+  filename: 'js/bundle.min.js',
 };
 
 config.plugins = [
-  new webpack.HotModuleReplacementPlugin(),
-  new BundleTracker({ filename: './webpack/webpack-stats.dev.json' }),
   new webpack.DefinePlugin({
     'process.env': {
       NODE_ENV: JSON.stringify('development'),
-      BASE_URL: JSON.stringify('http://0.0.0.0:8000/'),
+      API_ROOT: JSON.stringify('http://0.0.0.0:8000/'),
     }
   })
 ];
@@ -33,10 +23,9 @@ config.plugins = [
 
 config.devServer = {
   inline: true,
-  hot: true,
-  historyApiFallback: true,
+  contentBase: './dist',
+  port: 3000,
   host: '0.0.0.0',
-  port: 3000
 };
 
 module.exports = config;

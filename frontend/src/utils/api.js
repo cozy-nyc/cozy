@@ -3,7 +3,7 @@ import * as cookie from './cookie';
 
 
 const api = axios.create({
-  baseURL: process.env.BASE_URL,
+  baseURL: process.env.API_ROOT,
   timeout: 1000,
 });
 

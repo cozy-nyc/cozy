@@ -25,5 +25,5 @@ ReactDOM.render(
    <Provider store={store}>
       <Router history={browserHistory} routes={routes}/>
    </Provider>,
-  document.getElementById('react-root')
+  document.getElementById('root')
 );
