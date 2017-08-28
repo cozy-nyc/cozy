@@ -18,7 +18,7 @@ services:
       dockerfile: ./docker_compose/node/development/Dockerfile
     command: /start.sh
     volumes:
-      - .:/app
+      - ./frontend:/exchange/frontend
     ports:
       - "3000:3000"
 
@@ -32,7 +32,7 @@ services:
       - node
     env_file: .env
     volumes:
-      - .:/app
+      - ./backend:/exchange/backend
     ports:
       - "8000:8000"
     links:

@@ -10,13 +10,12 @@ RUN apt-get install -y nodejs
 RUN nodejs -v && npm -v
 
 # Requirements have to be pulled and installed here, otherwise caching won't work
-COPY ./requirements /requirements
-COPY package.json /app/
+COPY ./backend/requirements /backend/requirements
 
-WORKDIR /app
-COPY . /app
+WORKDIR /exchange/backend
+COPY ./backend /exchange/backend
 
-RUN pip install -r /requirements/local.txt && npm install && npm run build-development
+RUN pip install -r /backend/requirements/local.txt
 
 COPY ./docker_compose/django/development/start.sh /start.sh
 COPY ./docker_compose/django/entrypoint.sh /entrypoint.sh
