@@ -1,10 +1,9 @@
 FROM node:latest
 
+COPY . /app
 
-WORKDIR /exchange/frontend
-COPY ./frontend /exchange/frontend
-
-RUN npm install && npm run build-development
+WORKDIR /app
+RUN npm install
 
 COPY ./docker_compose/node/development/start.sh /start.sh
 RUN sed -i 's/\r//' /start.sh

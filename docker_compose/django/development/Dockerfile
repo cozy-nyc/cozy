@@ -1,4 +1,4 @@
-FROM python:3.6
+FROM python:3.5
 
 ENV PYTHONUNBUFFERED 1
 
@@ -10,12 +10,13 @@ RUN apt-get install -y nodejs
 RUN nodejs -v && npm -v
 
 # Requirements have to be pulled and installed here, otherwise caching won't work
-COPY ./backend/requirements /backend/requirements
+COPY ./requirements /requirements
+COPY package.json /app/
 
-WORKDIR /exchange/backend
-COPY ./backend /exchange/backend
+WORKDIR /app
+COPY . /app
 
-RUN pip install -r /backend/requirements/local.txt
+RUN pip install -r /requirements/local.txt && npm install && npm run build-development
 
 COPY ./docker_compose/django/development/start.sh /start.sh
 COPY ./docker_compose/django/entrypoint.sh /entrypoint.sh

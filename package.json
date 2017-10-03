@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build-development": "webpack --config webpack/webpack.local.config.js --progress --colors",
+    "build-production": "webpack --config webpack/webpack.production.config.js --progress --colors",
     "watch": "webpack-dev-server --config webpack/webpack.local.config.js",
     "test": "./node_modules/karma/bin/karma start webpack/karma.config.js --log-level debug"
   },
