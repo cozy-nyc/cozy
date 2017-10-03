@@ -1,4 +1,4 @@
-# cozy.nyc
+#exchange
 
 ### Requirements
 * [Docker Engine](https://docs.docker.com/engine/installation)
