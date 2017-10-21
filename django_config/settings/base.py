@@ -76,7 +76,7 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
-    'django_apps.shop',
+    'django_apps.store',
     'django_apps.contact',
     'django_apps.profiles',
     'django_apps.comments',
