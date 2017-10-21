@@ -7,8 +7,6 @@
 ### Stack
 * Postgres
 * Django
-* Webpack + React
-* Mocha for js testing
 * Pytest for python testing
 
 ### Setup and customize

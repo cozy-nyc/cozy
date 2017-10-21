@@ -127,52 +127,52 @@ class ItemList(ListAPIView):
 #------------------------------------------------------------------------------
 
 
-class ListingCreate(CreateAPIView):
-    queryset = Listing.objects.all()
-    serializer_class = ListingCreateUpdateSerializer
-    permission_classes = [IsAuthenticated]
-
-    def perform_create(self, serializer):
-        serializer.save(seller = self.request.user)
-
-class ListingUpdate(RetrieveUpdateAPIView):
-    queryset = Listing.objects.all()
-    serializer_class = ListingCreateUpdateSerializer
-    permission_classes = [IsOwnerOrReadOnly]
-
-    def perform_update(self, serializer):
-        serializer.save(seller = self.request.user)
-
-class ListingDelete(DestroyAPIView):
-    queryset = Listing.objects.all()
-    serializer_class = ListingDetailSeralizer
-    permission_classes = [IsOwnerOrReadOnly]
-
-
-class ListingDetial(RetrieveAPIView):
-    queryset = Listing.objects.all()
-    serializer_class = ListingDetailSeralizer
-    permission_classes = [AllowAny]
-
-
-class ListingList(ListAPIView):
-    queryset = Listing.objects.all()
-    serializer_class = ListingListSeralizer
-    permission_classes = [AllowAny]
-
-    def get_queryset(self, *args, **kwargs):
-        queryset_list = Listing.objects.all()
-        query = self.request.GET.get("q")
-        if query:
-            queryset_list = queryset_list.filter(
-            Q(item__name__icontains = query)|
-            Q(item__description__icontains = query)|
-            Q(item__subCategory__name__icontains = query)|
-            Q(item__category__name__icontains = query)|
-            Q(price__icontains = query)
-
-            ).distinct()
-        return queryset_list
+# class ListingCreate(CreateAPIView):
+#     queryset = Listing.objects.all()
+#     serializer_class = ListingCreateUpdateSerializer
+#     permission_classes = [IsAuthenticated]
+#
+#     def perform_create(self, serializer):
+#         serializer.save(seller = self.request.user)
+#
+# class ListingUpdate(RetrieveUpdateAPIView):
+#     queryset = Listing.objects.all()
+#     serializer_class = ListingCreateUpdateSerializer
+#     permission_classes = [IsOwnerOrReadOnly]
+#
+#     def perform_update(self, serializer):
+#         serializer.save(seller = self.request.user)
+#
+# class ListingDelete(DestroyAPIView):
+#     queryset = Listing.objects.all()
+#     serializer_class = ListingDetailSeralizer
+#     permission_classes = [IsOwnerOrReadOnly]
+#
+#
+# class ListingDetial(RetrieveAPIView):
+#     queryset = Listing.objects.all()
+#     serializer_class = ListingDetailSeralizer
+#     permission_classes = [AllowAny]
+#
+#
+# class ListingList(ListAPIView):
+#     queryset = Listing.objects.all()
+#     serializer_class = ListingListSeralizer
+#     permission_classes = [AllowAny]
+#
+#     def get_queryset(self, *args, **kwargs):
+#         queryset_list = Listing.objects.all()
+#         query = self.request.GET.get("q")
+#         if query:
+#             queryset_list = queryset_list.filter(
+#             Q(item__name__icontains = query)|
+#             Q(item__description__icontains = query)|
+#             Q(item__subCategory__name__icontains = query)|
+#             Q(item__category__name__icontains = query)|
+#             Q(price__icontains = query)
+#
+#             ).distinct()
+#         return queryset_list
 
 
 

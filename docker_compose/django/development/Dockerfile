@@ -1,4 +1,4 @@
-FROM python:3.5
+FROM python:3.6
 
 ENV PYTHONUNBUFFERED 1
 
@@ -6,17 +6,14 @@ ENV PYTHONUNBUFFERED 1
 RUN export DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get -y install build-essential curl
 RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
-RUN apt-get install -y nodejs
-RUN nodejs -v && npm -v
 
 # Requirements have to be pulled and installed here, otherwise caching won't work
 COPY ./requirements /requirements
-COPY package.json /app/
 
 WORKDIR /app
 COPY . /app
 
-RUN pip install -r /requirements/local.txt && npm install && npm run build-development
+RUN pip install -r /requirements/local.txt
 
 COPY ./docker_compose/django/development/start.sh /start.sh
 COPY ./docker_compose/django/entrypoint.sh /entrypoint.sh

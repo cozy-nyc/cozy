@@ -6,8 +6,6 @@ ENV PYTHONUNBUFFERED 1
 RUN export DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get -y install build-essential curl
 RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
-RUN apt-get install -y nodejs
-RUN nodejs -v && npm -v
 
 # Requirements have to be pulled and installed here, otherwise caching won't work
 COPY ./requirements /requirements
@@ -19,7 +17,6 @@ COPY . /app
 RUN pip install -r /requirements/production.txt \
     && groupadd -r django \
     && useradd -r -g django django \
-    && npm install && npm run build-production
 
 RUN chown -R django /app
 
