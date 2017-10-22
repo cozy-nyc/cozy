@@ -2,7 +2,7 @@
 -r base.txt
 
 # Django debug toolbar
-django-debug-toolbar==1.6
+django-debug-toolbar
 
 # Code linter
-flake8==3.2.1
+flake8
