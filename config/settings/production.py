@@ -49,7 +49,7 @@ ALLOWED_HOSTS = config(
 INSTALLED_APPS += ('anymail', )
 
 ANYMAIL = {
-    'MAILGUN_API_KEY': config('MAILGUN_API_KEY'),
+    'MAILGUN_API_KEY': env('MAILGUN_API_KEY'),
 }
 
 

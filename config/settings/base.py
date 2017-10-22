@@ -13,13 +13,17 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 import datetime
 import dj_database_url
 import os
+import environ
 
-from decouple import config
+base = environ.Path(__file__) - 3
+env = environ.Env()
+environ.Env.read_env(env_file=base('.env'))
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-APPS_DIR = os.path.join(BASE_DIR, 'django_apps')
+APPS_DIR = os.path.join(BASE_DIR, 'apps')
+
 
 
 # SECRET KEY
@@ -27,7 +31,7 @@ APPS_DIR = os.path.join(BASE_DIR, 'django_apps')
 # https://docs.djangoproject.com/en/1.10/ref/settings/#std:setting-SECRET_KEY
 # SECURITY WARNING: keep the secret key used in production secret!
 
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = env('SECRET_KEY')
 
 
 # DEBUG
@@ -35,7 +39,7 @@ SECRET_KEY = config('SECRET_KEY')
 # https://docs.djangoproject.com/en/1.10/ref/settings/#debug
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = config('DEBUG', cast=bool)
+DEBUG = env('DEBUG')
 
 
 # MANAGER CONFIGURATION
@@ -76,10 +80,10 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
-    'django_apps.store',
-    'django_apps.contact',
-    'django_apps.profiles',
-    'django_apps.comments',
+    'apps.store',
+    'apps.contact',
+    'apps.profiles',
+    'apps.comments',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -113,7 +117,7 @@ CORS_ORIGIN_WHITELIST = (
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/1.10/ref/settings/#root-urlconf
 
-ROOT_URLCONF = 'django_config.urls'
+ROOT_URLCONF = 'config.urls'
 
 
 # TEMPLATE CONFIGURATION
@@ -141,7 +145,7 @@ TEMPLATES = [
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/1.10/ref/settings/#wsgi-application
 
-WSGI_APPLICATION = 'django_config.wsgi.application'
+WSGI_APPLICATION = 'config.wsgi.application'
 
 
 # DATABASE CONFIGURATION
@@ -149,7 +153,7 @@ WSGI_APPLICATION = 'django_config.wsgi.application'
 # See: https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.parse(config('DATABASE_URL')),
+    'default': dj_database_url.parse(env('DATABASE_URL')),
 }
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 
@@ -218,7 +222,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static_cdn')
 
 MEDIA_URL = "/media/"
 
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "media_cdn")
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 
 # Django REST framework
@@ -258,10 +262,10 @@ JWT_AUTH = {
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/1.10/topics/email/
 
-EMAIL_PORT = config('EMAIL_PORT')
+EMAIL_PORT = env('EMAIL_PORT')
 
-EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_HOST = env('EMAIL_HOST')
 
-EMAIL_BACKEND = config('EMAIL_BACKEND')
+EMAIL_BACKEND = env('EMAIL_BACKEND')
 
-DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
+DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
