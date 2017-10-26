@@ -1,18 +1,6 @@
 from .base import *
 
 
-# Webpack Loader by Owais Lane
-# ------------------------------------------------------------------------------
-# https://github.com/owais/django-webpack-loader
-
-WEBPACK_LOADER = {
-    'DEFAULT': {
-        'BUNDLE_DIR_NAME': 'builds/',
-        'STATS_FILE': os.path.join(BASE_DIR, 'webpack', 'webpack-stats.production.json')
-    }
-}
-
-
 # Use Whitenoise to serve static files
 # ------------------------------------------------------------------------------
 # https://whitenoise.readthedocs.io/
