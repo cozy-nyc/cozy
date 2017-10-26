@@ -16,7 +16,7 @@ import os
 import environ
 
 base = environ.Path(__file__) - 3
-env = environ.Env(	
+env = environ.Env(
     SECRET_KEY=str,
     DEBUG=(bool, False),
     ALLOWED_HOSTS=(list, ['0.0.0.0:8000']),
@@ -51,11 +51,11 @@ DEBUG = env('DEBUG')
 # https://docs.djangoproject.com/en/1.10/ref/settings/#admins
 # https://docs.djangoproject.com/en/1.10/ref/settings/#managers
 
-ADMINS = (
-    ("""Michael A. Gonzalez""", 'GonzalezMA.CHOP@gmail.com'),
-)
+# ADMINS = (
+#     ("""Michael A. Gonzalez""", 'GonzalezMA.CHOP@gmail.com'),
+# )
 
-MANAGERS = ADMINS
+# MANAGERS = ADMINS
 
 
 # APP CONFIGURATION
