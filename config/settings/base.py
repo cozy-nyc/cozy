@@ -16,7 +16,11 @@ import os
 import environ
 
 base = environ.Path(__file__) - 3
-env = environ.Env()
+env = environ.Env(	
+    SECRET_KEY=str,
+    DEBUG=(bool, False),
+    ALLOWED_HOSTS=(list, ['0.0.0.0:8000']),
+)
 environ.Env.read_env(env_file=base('.env'))
 
 

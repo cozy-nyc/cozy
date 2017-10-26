@@ -33,12 +33,7 @@ INSTALLED_APPS += ('gunicorn', )
 # ------------------------------------------------------------------------------
 # Hosts/domain names that are valid for this site
 # See https://docs.djangoproject.com/en/1.6/ref/settings/#allowed-hosts
-
-ALLOWED_HOSTS = config(
-    'ALLOWED_HOSTS',
-    cast=lambda v: [d for d in [s.strip() for s in v.split(',')] if d],
-    default='',
-)
+ALLOWED_HOSTS = env('ALLOWED_HOSTS')
 
 
 # EMAIL CONFIGURATION - Anymail with Mailgun
