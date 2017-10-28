@@ -1,11 +1,8 @@
-{% extends 'base.html' %}
-{% load staticfiles %}
-{% load render_bundle from webpack_loader %}
+{% extends 'base.html' %} {% load staticfiles %} {% block body %}
+<section class="header">
 
-{% block body %}
-<div id="root"></div>
-{% endblock body %}
+  <img id="logo" src="/static/logo.svg"></img>
+</section>
 
-{% block javascript %}
-{% render_bundle 'main' %}
-{% endblock javascript %}
+<script src="main.js"></script>
+{% endblock body %} {% block javascript %}  {% endblock javascript %}
