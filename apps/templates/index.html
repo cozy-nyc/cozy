@@ -1,13 +1,9 @@
-{% extends 'base.html' %}
-{% load staticfiles %}
+{% extends 'base.html' %} {% load staticfiles %} {% block body %}
+<section class="header">
 
+  <img id="logo" src="/static/logo.svg"></img>
+</section>
 
-{% block body %}
-<div id="root">
-<h1>Hi</h1>
-</div>
-{% endblock body %}
+<script src="main.js"></script>
+{% endblock body %} {% block javascript %}  {% endblock javascript %}
 
-{% block javascript %}
-
-{% endblock javascript %}
