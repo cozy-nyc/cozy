@@ -16,23 +16,27 @@
 2. Create env/dev with the following values filled
 
 ```
-SECRET_KEY=[secret-key]
 DEBUG=true
+SECRET_KEY=[secret-key]
 DJANGO_SETTINGS_MODULE=django_config.settings.local
-ALLOWED_HOSTS=localhost 127.0.0.1 0.0.0.0
-DATABASE_URL=postgres://django:[password]@localhost:5432/[project-name]
+ALLOWED_HOSTS=localhost,127.0.0.1,0.0.0.0
+DATABASE_URL=postgres://dev:tester321@localhost:5432/cozyexchange
 
 MAILGUN_API_KEY=[mailgun-api-key]
 MAILGUN_DEFAULT_FROM_EMAIL=[email]
 
-POSTGRES_PASSWORD=[password]
-POSTGRES_USER=django
-POSTGRES_DB=[project-name]
+POSTGRES_PASSWORD=tester321
+POSTGRES_USER=dev
+POSTGRES_DB=exchange
 
-EMAIL_PORT=1025
-EMAIL_HOST=localhost
+EMAIL_USE_TLS=True
+EMAIL_PORT=587
+EMAIL_HOST=smtp.domain.com
+EMAIL_HOST_USER=email@cozy.nyc
+EMAIL_HOST_PASSWORD=password
 EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
-DEFAULT_FROM_EMAIL=[email]
+DEFAULT_FROM_EMAIL=default@cozy.nyc
+
 ```
 
 Finally, build and start the docker containers:

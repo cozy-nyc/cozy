@@ -52,10 +52,35 @@ DEBUG = env('DEBUG')
 # https://docs.djangoproject.com/en/1.10/ref/settings/#managers
 
 ADMINS = (
-    ("""Rokney Rosemie""", 'rokney@cozy.nyc'),
+    [('Rokney Rosemie', 'rokney@cozy.nyc'),('Juan Jimmenz', 'juan@cozy.nyc')]
 )
 
 MANAGERS = ADMINS
+
+# ERORR LOGGING
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        }
+    },
+    'handlers': {
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler'
+        }
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    }
+}
 
 
 # APP CONFIGURATION
@@ -266,9 +291,15 @@ JWT_AUTH = {
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/1.10/topics/email/
 
+EMAIL_USE_TLS = env('EMAIL_USE_TLS')
+
 EMAIL_PORT = env('EMAIL_PORT')
 
 EMAIL_HOST = env('EMAIL_HOST')
+
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 
 EMAIL_BACKEND = env('EMAIL_BACKEND')
 
