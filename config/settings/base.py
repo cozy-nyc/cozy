@@ -52,7 +52,8 @@ DEBUG = env('DEBUG')
 # https://docs.djangoproject.com/en/1.10/ref/settings/#managers
 
 ADMINS = (
-    [('Rokney Rosemie', 'rokney@cozy.nyc'),('Juan Jimmenz', 'juan@cozy.nyc')]
+    ('Rokney Rosemie', 'rokney@cozy.nyc'),
+    ('Juan Jimmenz', 'juan@cozy.nyc'),
 )
 
 MANAGERS = ADMINS
