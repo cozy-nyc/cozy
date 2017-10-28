@@ -22,8 +22,6 @@ from django.contrib.auth import views as auth_views
 #from django.contrib.auth import views self.assert_(boolean expression, 'message') auth_views
 from . import views
 
-from apps.store import views as shop_views
-from apps.contact import views as contact_views
 
 
 

@@ -6,7 +6,7 @@ from rest_framework.serializers import (
     RelatedField,
     ReadOnlyField,
     )
-from apps.store.models import Category, SubCategory, Item, Transaction
+from .models import Category, SubCategory, Item, Transaction
 
 
 #------------------------------------------------------------------------------

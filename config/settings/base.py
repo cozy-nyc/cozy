@@ -51,11 +51,11 @@ DEBUG = env('DEBUG')
 # https://docs.djangoproject.com/en/1.10/ref/settings/#admins
 # https://docs.djangoproject.com/en/1.10/ref/settings/#managers
 
-# ADMINS = (
-#     ("""Michael A. Gonzalez""", 'GonzalezMA.CHOP@gmail.com'),
-# )
+ADMINS = (
+    ("""Rokney Rosemie""", 'rokney@cozy.nyc'),
+)
 
-# MANAGERS = ADMINS
+MANAGERS = ADMINS
 
 
 # APP CONFIGURATION
